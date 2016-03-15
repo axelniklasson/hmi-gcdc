@@ -1,8 +1,8 @@
 import React from 'react'
 
-var socket = require('socket.io-client')('http://localhost:3000');
+const socket = require('socket.io-client')('http://localhost:3000');
 
-class App extends React.Component {
+class Speed extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -25,4 +25,4 @@ class App extends React.Component {
   }
 }
 
-export default App
+export default Speed

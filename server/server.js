@@ -6,23 +6,11 @@ var express = require('express');
 var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
-
-app.use(express.static('public'));
-
-app.get('/', function(req, res){
-	res.sendFile(__dirname + '/index.html');
-});
-
 http.listen(3000);
 
 server.on('error', (err) => {
 	console.log(`server error:\n${err.stack}`);
 	server.close();
-});
-
-server.on('listening', () => {
-	var address = server.address();
-	console.log('App running on http://localhost:3000!');
 });
 
 server.on('message', (packet, remote) => {

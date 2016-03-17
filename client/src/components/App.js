@@ -1,4 +1,6 @@
 import React from 'react'
+import CSSModules from 'react-css-modules'
+import styles from '../styles/App'
 import CoordinateSystem from './CoordinateSystem'
 import Speed from './Speed'
 
@@ -16,4 +18,4 @@ class App extends React.Component {
   }
 }
 
-export default App
+export default CSSModules(App, styles)

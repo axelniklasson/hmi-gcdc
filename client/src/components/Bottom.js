@@ -3,6 +3,7 @@ import CSSModules from 'react-css-modules'
 import styles from '../styles/Bottom'
 
 import Dashboard from './Dashboard'
+import InfoBox from './InfoBox'
 
 class Bottom extends Component {
   render() {
@@ -12,7 +13,7 @@ class Bottom extends Component {
           <Dashboard />
         </div>
         <div styleName="info-container">
-          
+          <InfoBox />
         </div>
       </div>  
     )

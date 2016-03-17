@@ -1,8 +1,8 @@
 import React from 'react'
 import CSSModules from 'react-css-modules'
 import styles from '../styles/App'
-import CoordinateSystem from './CoordinateSystem'
-import Speed from './Speed'
+
+import Bottom from './Bottom'
 
 class App extends React.Component {
   constructor(props) {
@@ -11,8 +11,11 @@ class App extends React.Component {
 
   render() {
     return (
-      <div>
-        <CoordinateSystem />
+      <div styleName="container">
+        <div styleName="top"></div>
+        <div styleName="bottom">
+          <Bottom />
+        </div>
       </div>
     )
   }

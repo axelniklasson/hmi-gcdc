@@ -1,0 +1,14 @@
+.container {
+  width: 60%;
+  height: 100%;
+  z-index: 1;
+}
+
+.circle {
+  height: 200%;
+  width: 110%;
+  margin-bottom: -30%;
+  margin-left: -5%;
+  background-color: red;
+  border-radius: 100%;
+}

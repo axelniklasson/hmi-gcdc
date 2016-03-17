@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-const socket = require('socket.io-client')('http://localhost:3000');
+// const socket = require('socket.io-client')('http://localhost:3000');
 const offsetX = -60;
 const offsetY = -50;
 
@@ -13,14 +13,14 @@ class CoordinateSystem extends Component {
     }
   }
 
-  componentDidMount() {
-    socket.on('data', (msg) => {
-      this.setState({
+  // componentDidMount() {
+  //   socket.on('data', (msg) => {
+  //     this.setState({
         // vehicleX: offsetX + parseFloat(msg[2]),
         // vehicleY: offsetY - parseFloat(msg[3])
-      })
-    })
-  }
+  //     })
+  //   })
+  // }
 
   render() {
     return (

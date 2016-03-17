@@ -2,6 +2,7 @@ import React from 'react'
 import CSSModules from 'react-css-modules'
 import styles from '../styles/App'
 
+import Top from './Top'
 import Bottom from './Bottom'
 
 class App extends React.Component {
@@ -12,7 +13,9 @@ class App extends React.Component {
   render() {
     return (
       <div styleName="container">
-        <div styleName="top"></div>
+        <div styleName="top">
+          <Top />
+        </div>
         <div styleName="bottom">
           <Bottom />
         </div>

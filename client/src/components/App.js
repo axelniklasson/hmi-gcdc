@@ -12,19 +12,15 @@ class App extends React.Component {
     super(props)
     this.state = {
       speed: 0,
-      acceleration: 0,
-      xCoord: 0,
-      yCoord: 0
+      acceleration: 0
     }
   }
 
   componentDidMount() {
     socket.on('data', (msg) => {
       this.setState({
-        speed: msg[0],
-        acceleration: msg[1],
-        xCoord: msg[2],
-        yCoord: msg[3]
+        speed: msg[7]['value'],
+        acceleration: msg[8]['value']
       })
     })
   }

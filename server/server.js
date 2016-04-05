@@ -34,6 +34,7 @@ server.on('error', (err) => {
 
 server.on('message', (packet, remote) => {
 	var data = parse(packet);
+	console.log(data);
 	io.emit('data', data);
 });
 

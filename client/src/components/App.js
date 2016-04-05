@@ -5,7 +5,7 @@ import styles from '../styles/App'
 import Top from './Top'
 import Bottom from './Bottom'
 
-const socket = require('socket.io-client')('http://localhost:3000');
+const socket = require('socket.io-client')('http://192.168.1.200:3000');
 
 class App extends React.Component {
   constructor(props) {

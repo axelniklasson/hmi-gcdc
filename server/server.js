@@ -6,7 +6,7 @@ var express = require('express');
 var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
-http.listen(3000);
+http.listen(4000);
 
 const LABELS = [
 	'steeringAngle',
@@ -34,6 +34,7 @@ server.on('error', (err) => {
 
 server.on('message', (packet, remote) => {
 	var data = parse(packet);
+	console.log(data);
 	io.emit('data', data);
 });
 

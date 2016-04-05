@@ -58,7 +58,7 @@ resetStepTime = 500;
 
 %load parameters
 sensorFusionInit
-HMIupdateRate = 0.1; % <---- S?tt va ni k?nner f?r h?r!
+HMIupdateRate = 0.05; % <---- S?tt va ni k?nner f?r h?r!
 
 % Notera: Grundfrekvensen i den h?r modellen ?r 0.005. Ni beh?ver ha det i
 % eran ocks? antagligen. Ni ?ndrar detta i:

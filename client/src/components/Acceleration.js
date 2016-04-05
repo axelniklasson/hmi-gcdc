@@ -8,10 +8,14 @@ class Acceleration extends Component {
   }
 
   render() {
+    var { acceleration } = this.props;
+
     return (
       <div styleName="container">
         <div styleName="circle">
-
+          <div styleName="text-box">
+            <div styleName="acceleration">{acceleration}</div>
+          </div>
         </div>
       </div>
     )

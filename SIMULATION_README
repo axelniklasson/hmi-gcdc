@@ -1,0 +1,7 @@
+* Öppna först server/simulation/mainHMI.m med MATLAB
+* Kör den filen (den läser in alla variabler som modellen använder)
+* Öppna server/simulation/sensorFusionOfflineHMI.slx
+* Starta servern
+* Starta klienten
+* Öppna en webbläsare och gå till http://localhost:8080/
+* Starta simuleringen och se när allting uppdateras i HMI:t

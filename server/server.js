@@ -6,7 +6,26 @@ var express = require('express');
 var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
-http.listen(3000);
+http.listen(4000);
+
+const LABELS = [
+	'steeringAngle',
+	'throttlePedalPosition',
+	'gearStatus',
+	'turnIndicator',
+	'driverBreaking',
+	'driverBelted',
+	'heading',
+	'speed',
+	'longAcc',
+	'yawRate',
+	'latAcc',
+	'latVel',
+	'latitude',
+	'longitude',
+	'utmNorthing',
+	'utmEasting'
+];
 
 server.on('error', (err) => {
 	console.log(`server error:\n${err.stack}`);
@@ -15,7 +34,7 @@ server.on('error', (err) => {
 
 server.on('message', (packet, remote) => {
 	var data = parse(packet);
-	// console.log(data);
+	console.log(data);
 	io.emit('data', data);
 });
 
@@ -29,6 +48,7 @@ function parse(packet) {
 		index += 1;
 	}
 
+	index = 0;
 	for (var i = 0; i < (packet.length / 8); i++) {
 		var binary = [];
 		for (var j = 0 + (8 * i); j < 8 + (8 * i); j++) {
@@ -66,29 +86,12 @@ function parse(packet) {
 			decimal = -decimal;
 		}
 
-		// format output depending on value
-		switch(i) {
-			// velocity
-			case 0:
-				resultArr[i] = Math.round(decimal * 100) / 100;
-				break;
-			// acceleration
-			case 1:
-				resultArr[i] = decimal.toFixed(2);
-				break;
-			// x-coordinate
-			case 2:
-				resultArr[i] = decimal.toFixed(2);
-				break;
-			// y-coordinate
-			case 3:
-				resultArr[i] = decimal.toFixed(2);
-				break;
-			// no format necessary
-			default:
-				resultArr[i] = decimal;
-				break;
-		}
+		var label = LABELS[index];
+		resultArr[index] = {
+			dataType: label,
+			value: decimal
+		};
+		index++;
 	}
 	return resultArr;
 }

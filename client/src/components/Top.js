@@ -1,10 +1,11 @@
 import React from 'react'
 import CSSModules from 'react-css-modules'
 import styles from '../styles/Top'
+import CanvasTest from './CanvasTest'
 
-const Top = () => (
+const Top = ({ speed }) => (
   <div styleName="container">
-    <div styleName="road-single"></div>
+    <CanvasTest speed={speed} />
   </div>
 )
 

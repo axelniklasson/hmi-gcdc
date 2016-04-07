@@ -5,14 +5,15 @@ import styles from '../styles/App'
 import Top from './Top'
 import Bottom from './Bottom'
 
-const socket = require('socket.io-client')('http://zeus.axelniklasson.se:4000');
+const socket = require('socket.io-client')('http://localhost:3000');
 
 class App extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
       speed: 0,
-      acceleration: 0
+      acceleration: 0,
+      lat: 0
     }
   }
 
@@ -20,7 +21,8 @@ class App extends React.Component {
     socket.on('data', (msg) => {
       this.setState({
         speed: msg[7]['value'],
-        acceleration: msg[8]['value']
+        acceleration: msg[8]['value'],
+        lat: msg[12]['value']
       })
     })
   }
@@ -29,7 +31,7 @@ class App extends React.Component {
     return (
       <div styleName="container">
         <div styleName="top">
-          <Top />
+          <Top speed={this.state.speed}/>
         </div>
         <div styleName="bottom">
           <Bottom speed={this.state.speed} acceleration={this.state.acceleration} />

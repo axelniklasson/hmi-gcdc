@@ -31,7 +31,9 @@ class App extends React.Component {
     return (
       <div styleName="container">
         <div styleName="top">
-          <Top speed={this.state.speed}/>
+          <Top 
+            speed={this.state.speed}
+            lat={this.state.lat} />
         </div>
         <div styleName="bottom">
           <Bottom speed={this.state.speed} acceleration={this.state.acceleration} />

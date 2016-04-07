@@ -11,31 +11,24 @@ class CanvasTest extends Component {
   componentDidMount() {
     let canvas = findDOMNode(this.refs.canvas)
     this.stage = new createjs.Stage(canvas)
+    this.stage.x = canvas.width / 2
+    this.stage.y = canvas.height / 2
   }
 
   // Create the drawing logic
-  draw(speed) { 
+  draw(speed, lat) { 
     this.stage.removeAllChildren()
 
     let circle = new createjs.Shape()
-    circle.graphics.beginFill('DeepSkyBlue')
-      .drawCircle(speed*30,speed*20,50)
-    circle.x = 100
-    circle.y = 200
+    circle.graphics.beginFill('DeepSkyBlue').drawCircle(0,0,70)
     this.stage.addChild(circle)
 
     let circle2 = new createjs.Shape()
-    circle2.graphics.beginFill('DarkRed')
-      .drawCircle(speed*5,speed*15,50)
-    circle2.x = 300
-    circle2.y = 300
+    circle2.graphics.beginFill('DarkRed').drawCircle(speed*-10,speed*-15,50)
     this.stage.addChild(circle2)
 
     let circle3 = new createjs.Shape()
-    circle3.graphics.beginFill('ForestGreen')
-      .drawCircle(speed*25,speed*5,30)
-    circle3.x = 150
-    circle3.y = 250
+    circle3.graphics.beginFill('ForestGreen').drawCircle(speed*15,speed*5,30)
     this.stage.addChild(circle3)
 
     this.stage.update()
@@ -43,11 +36,11 @@ class CanvasTest extends Component {
 
   render() {
     // Extract props
-    const { speed } = this.props
+    const { speed, lat } = this.props
 
     // Draw on props update
-    if (speed) {
-      this.draw(speed)
+    if (speed, lat) {
+      this.draw(speed, lat)
     }
 
     return (
@@ -55,8 +48,8 @@ class CanvasTest extends Component {
         <canvas 
           className="container"
           ref="canvas"
-          width={768}
-          height={1024}></canvas>
+          width={980}
+          height={1300} />
       </div>
     )
   }

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {Component} from 'react'
 import CSSModules from 'react-css-modules'
 import styles from '../styles/App'
 
@@ -7,7 +7,7 @@ import Bottom from './Bottom'
 
 const socket = require('socket.io-client')('http://localhost:3000');
 
-class App extends React.Component {
+class App extends Component {
   constructor(props) {
     super(props)
     this.state = {

@@ -5,7 +5,7 @@ import styles from '../styles/App'
 import Top from './Top'
 import Bottom from './Bottom'
 
-const socket = require('socket.io-client')('http://localhost:3000');
+const socket = require('socket.io-client')('129.16.191.135:3000');
 
 class App extends Component {
   constructor(props) {
@@ -13,7 +13,9 @@ class App extends Component {
     this.state = {
       speed: 0,
       acceleration: 0,
-      lat: 0
+      lat: 0,
+      northing: 0,
+      easting: 0
     }
   }
 
@@ -22,7 +24,9 @@ class App extends Component {
       this.setState({
         speed: msg[7]['value'],
         acceleration: msg[8]['value'],
-        lat: msg[12]['value']
+        lat: msg[12]['value'],
+        northing: msg[14]['value'],
+        easting: msg[15]['value']
       })
     })
   }
@@ -33,7 +37,8 @@ class App extends Component {
         <div styleName="top">
           <Top 
             speed={this.state.speed}
-            lat={this.state.lat} />
+            northing={this.state.northing}
+            easting={this.state.easting}/>
         </div>
         <div styleName="bottom">
           <Bottom speed={this.state.speed} acceleration={this.state.acceleration} />

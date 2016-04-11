@@ -36,7 +36,10 @@ module.exports = {
     hot: true
   },
   plugins: [
-    new HtmlWebpackPlugin(),
+    new HtmlWebpackPlugin({
+      template: './src/template.ejs',
+      inject: 'body'
+    }),
     new webpack.HotModuleReplacementPlugin()
   ]
 };

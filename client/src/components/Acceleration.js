@@ -14,7 +14,7 @@ class Acceleration extends Component {
       <div styleName="container">
         <div styleName="circle">
           <div styleName="text-box">
-            <div styleName="acceleration">{acceleration}</div>
+            <div styleName="acceleration"></div>
           </div>
         </div>
       </div>

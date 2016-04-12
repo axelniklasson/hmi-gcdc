@@ -3,9 +3,9 @@ import CSSModules from 'react-css-modules'
 import styles from '../styles/Top'
 import CanvasTest from './CanvasTest'
 
-const Top = ({ speed, lat }) => (
+const Top = ({ speed, northing, easting }) => (
   <div styleName="container">
-    <CanvasTest speed={speed} lat={lat} />
+      <CanvasTest speed={speed} northing={northing} easting={easting}/>
   </div>
 )
 

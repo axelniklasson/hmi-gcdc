@@ -16,31 +16,26 @@ class CanvasTest extends Component {
   }
 
   // Create the drawing logic
-  draw(speed, lat) { 
+  draw(speed, northing, easting) {
+    var startNorth = 6397675.946148769;
+    var startEast = 320194.38247808425;
     this.stage.removeAllChildren()
 
-    let circle = new createjs.Shape()
-    circle.graphics.beginFill('DeepSkyBlue').drawCircle(0,0,70)
-    this.stage.addChild(circle)
-
-    let circle2 = new createjs.Shape()
-    circle2.graphics.beginFill('DarkRed').drawCircle(speed*-10,speed*-15,50)
-    this.stage.addChild(circle2)
-
-    let circle3 = new createjs.Shape()
-    circle3.graphics.beginFill('ForestGreen').drawCircle(speed*15,speed*5,30)
-    this.stage.addChild(circle3)
+    var circle = new createjs.Shape();
+    circle.graphics.beginFill("white");
+    circle.graphics.drawCircle(easting-startEast,northing-startNorth,50);
+    this.stage.addChild(circle);
 
     this.stage.update()
   }
 
   render() {
     // Extract props
-    const { speed, lat } = this.props
+    const { speed, northing, easting } = this.props
 
     // Draw on props update
-    if (speed, lat) {
-      this.draw(speed, lat)
+    if (speed, northing, easting) {
+      this.draw(speed, northing, easting)
     }
 
     return (

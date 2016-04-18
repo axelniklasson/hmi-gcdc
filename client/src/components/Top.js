@@ -5,7 +5,7 @@ import CanvasTest from './CanvasTest'
 
 const Top = ({ speed, northing, easting }) => (
   <div styleName="container">
-      <CanvasTest speed={0} northing={6397675.946148769} easting={320194.38247808425}/>
+      <CanvasTest speed={speed} northing={northing} easting={easting}/>
   </div>
 )
 

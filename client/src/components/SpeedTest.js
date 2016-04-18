@@ -11,17 +11,17 @@ class SpeedTest extends Component {
   componentDidMount() {
     let canvas = findDOMNode(this.refs.canvas)
     this.stage = new createjs.Stage(canvas)
-    this.stage.x = 125
-    this.stage.y = 130
+    this.stage.x = 140
+    this.stage.y = 140
   }
 
   // Create the drawing logic
   draw(speed) {
-    var outerRadius = 115;
-    var smallLineRadius = 105;
-    var bigLineRadius = 90;
-    var textRadius = 70;
-    var innerRadius = 60;
+    var outerRadius = 125;
+    var smallLineRadius = 115;
+    var bigLineRadius = 100;
+    var textRadius = 80;
+    var innerRadius = 70;
     var increase = 1;
 
     this.stage.removeAllChildren();

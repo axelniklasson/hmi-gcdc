@@ -1,3 +1,3 @@
 export default {
-    foo: require('./foo.jpg')
+    transport: require('./transport.png')
 }

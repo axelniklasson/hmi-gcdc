@@ -27,17 +27,17 @@ class CanvasTest extends Component {
     var roadWidth = 4000;
     var scale = 1.5;
 
-    var vehicle = new createjs.Bitmap(images.transport);
-    vehicle.x = 0;
-    vehicle.y=0;
-    this.stage.addChild(vehicle);
+    var vehicle = new createjs.Bitmap(images.transport)
+    vehicle.x = 0
+    vehicle.y = 0
+    this.stage.addChild(vehicle)
 
-  //  var circle = new createjs.Shape();
-  //  circle.graphics.beginFill("white");
-  //  circle.graphics.drawCircle(100,northing-startNorth,50);
-  //  this.stage.addChild(circle);
+   // var circle = new createjs.Shape();
+   // circle.graphics.beginFill("white");
+   // circle.graphics.drawCircle(100,northing-startNorth,50);
+   // this.stage.addChild(circle);
 
-    this.stage.update()
+   vehicle.image.onload = (event) => this.stage.update()
   }
 
   render() {

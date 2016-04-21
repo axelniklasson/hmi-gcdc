@@ -82,8 +82,7 @@ function parse(packet) {
         if (binary[0] === 1){
             decimal = -decimal;
         }
-
-        resultArr[index % 3][LABELS[index % 13]] = decimal;
+        resultArr[parseInt(index/13)][LABELS[index % 13]] = decimal;
         index++;
     }
 

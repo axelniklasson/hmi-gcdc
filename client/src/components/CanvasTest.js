@@ -12,7 +12,7 @@ class CanvasTest extends Component {
   componentDidMount() {
     let canvas = findDOMNode(this.refs.canvas)
     this.stage = new createjs.Stage(canvas)
-    this.stage.x = canvas.width / 2 - (2097*0.05)/2
+    this.stage.x = canvas.width / 2 - (2097*0.01)/2
     this.stage.y = canvas.height / 2;
     //this.draw(0,6397675.946148769,320194.38247808425)
   }
@@ -24,31 +24,39 @@ class CanvasTest extends Component {
     var vehicleHeight = 4635;
     var vehicleWidth = 2097;
     var roadWidth = 4000;
-    var scale = 0.05;
+    var scale = 0.02;
 
     var vehicle = new createjs.Bitmap(images.transport);
     var otherVehicle = new createjs.Bitmap(images.otherTransport);
     var otherVehicle2 = new createjs.Bitmap(images.otherTransport);
 
+    var testEast = ownVehicle.easting;
+    var testNorth  = ownVehicle.northing;
+
+    vehicle.x = -(testEast - ownVehicle.easting)*1000*scale;
+    vehicle.y = -(ownVehicle.northing - testNorth)*1000*scale;
     vehicle.scaleX = (vehicleWidth/100)*scale;
     vehicle.scaleY = (vehicleHeight/178)*scale;
+    vehicle.rotation = ownVehicle.heading;
 
-    console.log(vehicle1.heading + " " + ownVehicle.heading + " " + (vehicle1.heading-ownVehicle.heading));
+    console.log((vehicle1.easting - ownVehicle.easting) + " " + (vehicle1.northing - ownVehicle.northing));
 
-    otherVehicle.x = (vehicle1.easting - ownVehicle.easting)*1000*scale;
-    otherVehicle.y = (vehicle1.northing - ownVehicle.northing)*1000*scale;
-    otherVehicle.rotation = (vehicle1.heading-ownVehicle.heading);
+    otherVehicle.x = -(testEast - vehicle1.easting)*1000*scale;
+    otherVehicle.y = -(vehicle1.northing - testNorth)*1000*scale;
+    otherVehicle.rotation = vehicle1.heading;
     otherVehicle.scaleX = (vehicleWidth/100)*scale;
     otherVehicle.scaleY = (vehicleHeight/178)*scale;
-    otherVehicle2.x = (vehicle2.easting-ownVehicle.easting)*1000*scale;
-    otherVehicle2.y = (vehicle2.northing-ownVehicle.northing )*1000*scale;
-    otherVehicle2.rotation = (vehicle2.heading - ownVehicle.heading);
+    otherVehicle2.x = -(testEast - vehicle2.easting)*1000*scale;
+    otherVehicle2.y = -(vehicle2.northing-testNorth)*1000*scale;
+    otherVehicle2.rotation = vehicle2.heading;
     otherVehicle2.scaleX = (vehicleWidth/100)*scale;
     otherVehicle2.scaleY = (vehicleHeight/178)*scale;
 
     this.stage.addChild(vehicle)
     this.stage.addChild(otherVehicle);
     this.stage.addChild(otherVehicle2);
+
+    this.stage.rotation = (-ownVehicle.heading);
 
     var y = -50;
     var plusX = (2097*0.05)/2;

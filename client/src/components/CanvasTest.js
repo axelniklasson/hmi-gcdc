@@ -36,12 +36,12 @@ class CanvasTest extends Component {
 
     console.log((ownVehicle.easting - vehicle1.easting) + " " + (ownVehicle.northing - vehicle1.northing))
 
-    otherVehicle.x = (ownVehicle.easting - vehicle1.easting) - ((vehicleWidth*scale)/2);
-    otherVehicle.y = (ownVehicle.northing - vehicle1.northing);
+    otherVehicle.x = (vehicle1.easting - ownVehicle.easting)*1000*scale - ((vehicleWidth*scale)/2);
+    otherVehicle.y = (vehicle1.northing - ownVehicle.northing)*1000*scale;
     otherVehicle.scaleX = (vehicleWidth/100)*scale;
     otherVehicle.scaleY = (vehicleHeight/178)*scale;
-    otherVehicle2.x = (ownVehicle.easting - vehicle2.easting) - ((vehicleWidth*scale)/2);
-    otherVehicle2.y = (ownVehicle.northing - vehicle2.northing);
+    otherVehicle2.x = (vehicle2.easting-ownVehicle.easting)*1000*scale - ((vehicleWidth*scale)/2);
+    otherVehicle2.y = (vehicle2.northing-ownVehicle.northing )*1000*scale;
     otherVehicle2.scaleX = (vehicleWidth/100)*scale;
     otherVehicle2.scaleY = (vehicleHeight/178)*scale;
 

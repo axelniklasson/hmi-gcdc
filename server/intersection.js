@@ -29,10 +29,18 @@ server.on('error', (err) => {
     server.close();
 });
 
+var counter = 0;
+
 server.on('message', (packet, remote) => {
     var data = parse(packet);
     console.log(data);
-    io.emit('intersectionData', data);
+
+    if(counter === 10){
+    io.emit('intersectionData', data); 
+    counter = 0;  
+    }
+
+    counter++;
 });
 
 function parse(packet) {

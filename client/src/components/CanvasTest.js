@@ -12,7 +12,7 @@ class CanvasTest extends Component {
   componentDidMount() {
     let canvas = findDOMNode(this.refs.canvas)
     this.stage = new createjs.Stage(canvas)
-    this.stage.x = canvas.width / 2
+    this.stage.x = canvas.width / 2 - (2097*0.05)/2
     this.stage.y = canvas.height / 2;
     //this.draw(0,6397675.946148769,320194.38247808425)
   }
@@ -30,18 +30,19 @@ class CanvasTest extends Component {
     var otherVehicle = new createjs.Bitmap(images.otherTransport);
     var otherVehicle2 = new createjs.Bitmap(images.otherTransport);
 
-    vehicle.x = 0 - ((vehicleWidth*scale)/2);
     vehicle.scaleX = (vehicleWidth/100)*scale;
     vehicle.scaleY = (vehicleHeight/178)*scale;
 
-    console.log((ownVehicle.easting - vehicle1.easting) + " " + (ownVehicle.northing - vehicle1.northing))
+    console.log(vehicle1.heading + " " + ownVehicle.heading + " " + (vehicle1.heading-ownVehicle.heading));
 
-    otherVehicle.x = (vehicle1.easting - ownVehicle.easting)*1000*scale - ((vehicleWidth*scale)/2);
+    otherVehicle.x = (vehicle1.easting - ownVehicle.easting)*1000*scale;
     otherVehicle.y = (vehicle1.northing - ownVehicle.northing)*1000*scale;
+    otherVehicle.rotation = (vehicle1.heading-ownVehicle.heading);
     otherVehicle.scaleX = (vehicleWidth/100)*scale;
     otherVehicle.scaleY = (vehicleHeight/178)*scale;
-    otherVehicle2.x = (vehicle2.easting-ownVehicle.easting)*1000*scale - ((vehicleWidth*scale)/2);
+    otherVehicle2.x = (vehicle2.easting-ownVehicle.easting)*1000*scale;
     otherVehicle2.y = (vehicle2.northing-ownVehicle.northing )*1000*scale;
+    otherVehicle2.rotation = (vehicle2.heading - ownVehicle.heading);
     otherVehicle2.scaleX = (vehicleWidth/100)*scale;
     otherVehicle2.scaleY = (vehicleHeight/178)*scale;
 
@@ -50,6 +51,7 @@ class CanvasTest extends Component {
     this.stage.addChild(otherVehicle2);
 
     var y = -50;
+    var plusX = (2097*0.05)/2;
     for(var i = 0; i<256; i=i+3){
       var leftLine = new createjs.Shape();
       var rightLine = new createjs.Shape();
@@ -62,25 +64,25 @@ class CanvasTest extends Component {
       color = color + ")";
       leftLine.graphics.beginStroke(color);
       rightLine.graphics.beginStroke(color);
-      rightLine.graphics.moveTo(((vehicleWidth*scale)/2)+25,y);
-      leftLine.graphics.moveTo(-((vehicleWidth*scale)/2)-25, y);
+      rightLine.graphics.moveTo(((vehicleWidth*scale)/2)+25 + plusX,y);
+      leftLine.graphics.moveTo(-((vehicleWidth*scale)/2)-25+ plusX, y);
       y = y+1;
-      leftLine.graphics.lineTo(-((vehicleWidth*scale)/2)-25, y);
-      rightLine.graphics.lineTo(((vehicleWidth*scale)/2)+25, y);
+      leftLine.graphics.lineTo(-((vehicleWidth*scale)/2)-25+ plusX, y);
+      rightLine.graphics.lineTo(((vehicleWidth*scale)/2)+25+ plusX, y);
       this.stage.addChild(leftLine);
       this.stage.addChild(rightLine);
     }
 
     var lineLeft = new createjs.Shape();
     lineLeft.graphics.beginStroke("white")
-    lineLeft.graphics.moveTo(-((vehicleWidth*scale)/2)-25,y);
-    lineLeft.graphics.lineTo(-((vehicleWidth*scale)/2)-25,400);
+    lineLeft.graphics.moveTo(-((vehicleWidth*scale)/2)-25+ plusX,y);
+    lineLeft.graphics.lineTo(-((vehicleWidth*scale)/2)-25+ plusX,400);
     this.stage.addChild(lineLeft);
 
     var lineRight = new createjs.Shape();
     lineRight.graphics.beginStroke("white")
-    lineRight.graphics.moveTo(((vehicleWidth*scale)/2)+25,y);
-    lineRight.graphics.lineTo(((vehicleWidth*scale)/2)+25,400);
+    lineRight.graphics.moveTo(((vehicleWidth*scale)/2)+25+ plusX,y);
+    lineRight.graphics.lineTo(((vehicleWidth*scale)/2)+25+ plusX,400);
     this.stage.addChild(lineRight);
 
 

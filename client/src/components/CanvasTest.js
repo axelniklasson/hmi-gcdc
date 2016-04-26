@@ -18,12 +18,11 @@ class CanvasTest extends Component {
   }
 
   // Create the drawing logic
-  draw(speed, northing, easting) {
+  draw(ownVehicle, vehicle1, vehicle2) {
     this.stage.removeAllChildren()
-    var startNorth = 6397675.946148769;
-    var startEast = 320194.38247808425;
-    var ownVehicleHeight = 4635;
-    var ownVehicleWidth = 2097;
+
+    var vehicleHeight = 4635;
+    var vehicleWidth = 2097;
     var roadWidth = 4000;
     var scale = 0.05;
 
@@ -31,17 +30,20 @@ class CanvasTest extends Component {
     var otherVehicle = new createjs.Bitmap(images.otherTransport);
     var otherVehicle2 = new createjs.Bitmap(images.otherTransport);
 
-    vehicle.x = 0 - ((ownVehicleWidth*scale)/2);
-    vehicle.scaleX = (ownVehicleWidth/100)*scale;
-    vehicle.scaleY = (ownVehicleHeight/178)*scale;
-    otherVehicle.x = 0 - ((ownVehicleWidth*scale)/2) - ownVehicleWidth*scale - 50;
-    otherVehicle.y = (northing-startNorth);
-    otherVehicle.scaleX = (ownVehicleWidth/100)*scale;
-    otherVehicle.scaleY = (ownVehicleHeight/178)*scale;
-    otherVehicle2.x = 0 - ((ownVehicleWidth*scale)/2) - ownVehicleWidth*scale - 50;
-    otherVehicle2.y = 0 - ownVehicleHeight*scale -50 + (northing-startNorth)*2;
-    otherVehicle2.scaleX = (ownVehicleWidth/100)*scale;
-    otherVehicle2.scaleY = (ownVehicleHeight/178)*scale;
+    vehicle.x = 0 - ((vehicleWidth*scale)/2);
+    vehicle.scaleX = (vehicleWidth/100)*scale;
+    vehicle.scaleY = (vehicleHeight/178)*scale;
+
+    console.log((ownVehicle.easting - vehicle1.easting) + " " + (ownVehicle.northing - vehicle1.northing))
+
+    otherVehicle.x = (ownVehicle.easting - vehicle1.easting) - ((vehicleWidth*scale)/2);
+    otherVehicle.y = (ownVehicle.northing - vehicle1.northing);
+    otherVehicle.scaleX = (vehicleWidth/100)*scale;
+    otherVehicle.scaleY = (vehicleHeight/178)*scale;
+    otherVehicle2.x = (ownVehicle.easting - vehicle2.easting) - ((vehicleWidth*scale)/2);
+    otherVehicle2.y = (ownVehicle.northing - vehicle2.northing);
+    otherVehicle2.scaleX = (vehicleWidth/100)*scale;
+    otherVehicle2.scaleY = (vehicleHeight/178)*scale;
 
     this.stage.addChild(vehicle)
     this.stage.addChild(otherVehicle);
@@ -60,25 +62,25 @@ class CanvasTest extends Component {
       color = color + ")";
       leftLine.graphics.beginStroke(color);
       rightLine.graphics.beginStroke(color);
-      rightLine.graphics.moveTo(((ownVehicleWidth*scale)/2)+25,y);
-      leftLine.graphics.moveTo(-((ownVehicleWidth*scale)/2)-25, y);
+      rightLine.graphics.moveTo(((vehicleWidth*scale)/2)+25,y);
+      leftLine.graphics.moveTo(-((vehicleWidth*scale)/2)-25, y);
       y = y+1;
-      leftLine.graphics.lineTo(-((ownVehicleWidth*scale)/2)-25, y);
-      rightLine.graphics.lineTo(((ownVehicleWidth*scale)/2)+25, y);
+      leftLine.graphics.lineTo(-((vehicleWidth*scale)/2)-25, y);
+      rightLine.graphics.lineTo(((vehicleWidth*scale)/2)+25, y);
       this.stage.addChild(leftLine);
       this.stage.addChild(rightLine);
     }
 
     var lineLeft = new createjs.Shape();
     lineLeft.graphics.beginStroke("white")
-    lineLeft.graphics.moveTo(-((ownVehicleWidth*scale)/2)-25,y);
-    lineLeft.graphics.lineTo(-((ownVehicleWidth*scale)/2)-25,400);
+    lineLeft.graphics.moveTo(-((vehicleWidth*scale)/2)-25,y);
+    lineLeft.graphics.lineTo(-((vehicleWidth*scale)/2)-25,400);
     this.stage.addChild(lineLeft);
 
     var lineRight = new createjs.Shape();
     lineRight.graphics.beginStroke("white")
-    lineRight.graphics.moveTo(((ownVehicleWidth*scale)/2)+25,y);
-    lineRight.graphics.lineTo(((ownVehicleWidth*scale)/2)+25,400);
+    lineRight.graphics.moveTo(((vehicleWidth*scale)/2)+25,y);
+    lineRight.graphics.lineTo(((vehicleWidth*scale)/2)+25,400);
     this.stage.addChild(lineRight);
 
 
@@ -93,11 +95,11 @@ class CanvasTest extends Component {
 
   render() {
     // Extract props
-    const { speed, northing, easting } = this.props
+    const { ownVehicle, vehicle1, vehicle2 } = this.props
 
     // Draw on props update
-    if (speed, northing, easting) {
-      this.draw(speed, northing, easting)
+    if (ownVehicle, vehicle1, vehicle2) {
+      this.draw(ownVehicle, vehicle1, vehicle2)
     }
 
     return (

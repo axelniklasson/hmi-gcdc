@@ -3,9 +3,9 @@ import CSSModules from 'react-css-modules'
 import styles from '../styles/Top'
 import CanvasTest from './CanvasTest'
 
-const Top = ({ speed, northing, easting }) => (
+const Top = ({ ownVehicle, vehicle1, vehicle2 }) => (
   <div styleName="container">
-      <CanvasTest speed={speed} northing={northing} easting={easting}/>
+      <CanvasTest ownVehicle={ownVehicle} vehicle1={vehicle1} vehicle2={vehicle2}/>
   </div>
 )
 

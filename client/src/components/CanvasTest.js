@@ -19,11 +19,16 @@ class CanvasTest extends Component {
     this.stage = new createjs.Stage(canvas);
     this.stage.x = canvas.width / 2 - (this.vehicleWidth * this.scale)/ 2;
     this.stage.y = canvas.height / 2 + 40;
+
+    this.canvas = canvas;
     this.drawEgo();
   }
 
   // Prepare stage for drawing
   drawEgo() {
+    this.stage.x = this.canvas.width / 2 - (this.vehicleWidth * this.scale)/ 2;
+    this.stage.y = this.canvas.height / 2 + 40;
+
     if (!this.ego) {
       this.ego = new createjs.Bitmap(images.transport);
       this.ego.x = 0;

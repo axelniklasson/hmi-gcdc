@@ -30,18 +30,17 @@ class CanvasTest extends Component {
     this.ego.y = 0;
     this.ego.scaleX = (this.vehicleWidth / 100) * this.scale;
     this.ego.scaleY = (this.vehicleHeight / 178) * this.scale;
-    this.stage.addChild(this.ego);
 
     this.road = new createjs.Bitmap(images.road);
-    this.road.x = -(this.roadWidth*this.scale)/2 + (this.vehicleWidth * this.scale)/ 2;
+    this.road.x = -(this.roadWidth*this.scale)/2 + (this.vehicleWidth * this.scale)/  2;
     this.road.scaleX = (this.roadWidth/120) * this.scale;
 
     this.stage.addChild(this.road);
+    this.stage.addChild(this.ego);
 
     this.ego.image.onload = () => this.stage.update()
   }
 
-  // Sets init data and creates ego vehicle
   init() {
     this.vehicleHeight = 4635;
     this.vehicleWidth = 2097;
@@ -69,10 +68,10 @@ class CanvasTest extends Component {
   }
 
   updateScale(zoom) {
-    if (zoom == 1) {
-      this.scale += 0.005;
-    } else {
-      this.scale -= 0.005;
+    if (zoom == 1 && this.scale < 0.05) {
+      this.scale += 0.0025;
+    } else if (zoom == 0 && this.scale > 0.015) {
+      this.scale -= 0.0025;
     }
     this.drawEgo();
     this.stage.update();

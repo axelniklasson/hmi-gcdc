@@ -29,16 +29,16 @@ server.on('error', (err) => {
     server.close();
 });
 
+
 var counter = 0;
 
 server.on('message', (packet, remote) => {
-    var data = parse(packet);
-    console.log(data);
 
-    if(counter === 10){
-    io.emit('intersectionData', data); 
-   counter = 0;  
-   }
+    if (counter % 10 == 0) {
+        var data = parse(packet);
+        console.log('data received');
+        io.emit('intersectionData', data); 
+    }
 
     counter++;
 });

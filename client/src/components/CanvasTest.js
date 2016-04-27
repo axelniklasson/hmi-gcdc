@@ -8,58 +8,19 @@ class CanvasTest extends Component {
     super(props)
   }
 
+  componentWillMount() {
+    this.init()
+  }
+
   // Prepare stage for drawing
   componentDidMount() {
     let canvas = findDOMNode(this.refs.canvas)
-    this.stage = new createjs.Stage(canvas)
-    this.stage.x = canvas.width / 2 - (2097*0.03)/2
+    this.stage = new createjs.Stage(canvas);
+    this.stage.x = canvas.width / 2 - (2097 * this.scale)/ 2;
     this.stage.y = canvas.height / 2;
-    //this.draw(0,6397675.946148769,320194.38247808425)
-  }
-
-  // Create the drawing logic
-  draw(ownVehicle, vehicle1, vehicle2) {
-    this.stage.removeAllChildren()
-
-    var vehicleHeight = 4635;
-    var vehicleWidth = 2097;
-    var roadWidth = 4000;
-    var scale = 0.03;
-
-    var vehicle = new createjs.Bitmap(images.transport);
-    var otherVehicle = new createjs.Bitmap(images.otherTransport);
-    var otherVehicle2 = new createjs.Bitmap(images.otherTransport);
-
-    var testEast = ownVehicle.easting;
-    var testNorth  = ownVehicle.northing;
-
-    vehicle.x = (ownVehicle.easting - testEast)*1000*scale;
-    vehicle.y = (-ownVehicle.northing + testNorth)*1000*scale;
-    vehicle.scaleX = (vehicleWidth/100)*scale;
-    vehicle.scaleY = (vehicleHeight/178)*scale;
-    vehicle.rotation = ownVehicle.heading;
-
-    console.log(vehicle1.heading);
-
-    otherVehicle.x = (vehicle1.easting - testEast)*1000*scale;
-    otherVehicle.y = (-vehicle1.northing + testNorth)*1000*scale;
-    otherVehicle.rotation = vehicle1.heading;
-    otherVehicle.scaleX = (vehicleWidth/100)*scale;
-    otherVehicle.scaleY = (vehicleHeight/178)*scale;
-    otherVehicle2.x = (vehicle2.easting - testEast)*1000*scale;
-    otherVehicle2.y = (-vehicle2.northing+testNorth)*1000*scale;
-    otherVehicle2.rotation = vehicle2.heading;
-    otherVehicle2.scaleX = (vehicleWidth/100)*scale;
-    otherVehicle2.scaleY = (vehicleHeight/178)*scale;
-
-    this.stage.addChild(vehicle)
-    this.stage.addChild(otherVehicle);
-    this.stage.addChild(otherVehicle2);
-
-    this.stage.rotation = (-ownVehicle.heading);
 
     var y = -50;
-    var plusX = (2097*0.03)/2;
+    var plusX = (2097*this.scale)/2;
     for(var i = 0; i<256; i=i+3){
       var leftLine = new createjs.Shape();
       var rightLine = new createjs.Shape();
@@ -72,48 +33,78 @@ class CanvasTest extends Component {
       color = color + ")";
       leftLine.graphics.beginStroke(color);
       rightLine.graphics.beginStroke(color);
-      rightLine.graphics.moveTo(((vehicleWidth*scale)/2)+25 + plusX,y);
-      leftLine.graphics.moveTo(-((vehicleWidth*scale)/2)-25+ plusX, y);
+      rightLine.graphics.moveTo(((this.vehicleWidth*this.scale)/2)+25 + plusX,y);
+      leftLine.graphics.moveTo(-((this.vehicleWidth*this.scale)/2)-25+ plusX, y);
       y = y+1;
-      leftLine.graphics.lineTo(-((vehicleWidth*scale)/2)-25+ plusX, y);
-      rightLine.graphics.lineTo(((vehicleWidth*scale)/2)+25+ plusX, y);
-      leftLine.rotation = ownVehicle.heading;
-      rightLine.rotation = ownVehicle.heading
+      leftLine.graphics.lineTo(-((this.vehicleWidth*this.scale)/2)-25+ plusX, y);
+      rightLine.graphics.lineTo(((this.vehicleWidth*this.scale)/2)+25+ plusX, y);
       this.stage.addChild(leftLine);
       this.stage.addChild(rightLine);
     }
 
     var lineLeft = new createjs.Shape();
     lineLeft.graphics.beginStroke("white")
-    lineLeft.graphics.moveTo(-((vehicleWidth*scale)/2)-25+ plusX,y);
-    lineLeft.graphics.lineTo(-((vehicleWidth*scale)/2)-25+ plusX,400);
-    lineLeft.rotation = (ownVehicle.heading);
+    lineLeft.graphics.moveTo(-((this.vehicleWidth*this.scale)/2)-25+ plusX,y);
+    lineLeft.graphics.lineTo(-((this.vehicleWidth*this.scale)/2)-25+ plusX,400);
     this.stage.addChild(lineLeft);
 
     var lineRight = new createjs.Shape();
     lineRight.graphics.beginStroke("white")
-    lineRight.graphics.moveTo(((vehicleWidth*scale)/2)+25+ plusX,y);
-    lineRight.graphics.lineTo(((vehicleWidth*scale)/2)+25+ plusX,400);
-    lineRight.rotation = ownVehicle.heading;
+    lineRight.graphics.moveTo(((this.vehicleWidth*this.scale)/2)+25+ plusX,y);
+    lineRight.graphics.lineTo(((this.vehicleWidth*this.scale)/2)+25+ plusX,400);
     this.stage.addChild(lineRight);
 
+    this.stage.addChild(this.ego);
 
+    this.ego.image.onload = () => this.stage.update()
+  }
 
-   // var circle = new createjs.Shape();
-   // circle.graphics.beginFill("white");
-   // circle.graphics.drawCircle(100,northing-startNorth,50);
-   // this.stage.addChild(circle);
+  // Sets init data and creates ego vehicle
+  init() {
+    this.vehicleHeight = 4635;
+    this.vehicleWidth = 2097;
+    this.roadWidth = 4000;
+    this.scale = 0.03;
 
-   vehicle.image.onload = (event) => this.stage.update()
+    this.ego = new createjs.Bitmap(images.transport);
+    this.ego.x = 0;
+    this.ego.y = 0;
+    this.ego.scaleX = (this.vehicleWidth / 100) * this.scale;
+    this.ego.scaleY = (this.vehicleHeight / 178) * this.scale;
+
+    this.otherVehicles = [];
+  }
+
+  // Create the drawing logic
+  draw(ego, vehicles) {
+    for (var i = 0; i < vehicles.length; i++) {
+      var vehicle = vehicles[i];
+      this.otherVehicles[i].x = (vehicle.easting - ego.easting) * 1000 * this.scale;
+      this.otherVehicles[i].y = (-vehicle.northing + ego.northing) * 1000 * this.scale;
+      this.otherVehicles[i].rotation = vehicle.heading - ego.heading;
+      this.otherVehicles[i].scaleX = (this.vehicleWidth / 100) * this.scale;
+      this.otherVehicles[i].scaleY = (this.vehicleHeight / 178) * this.scale;
+    }
+
+    
+    this.stage.update()
   }
 
   render() {
     // Extract props
-    const { ownVehicle, vehicle1, vehicle2 } = this.props
+    const { ego, vehicles } = this.props;
+
+    if (this.otherVehicles.length == 0 && ego && vehicles) {
+      for (var i = 0; i < vehicles.length; i++) {
+        var vehicle = new createjs.Bitmap(images.otherTransport);
+        this.otherVehicles.push(vehicle);
+        this.stage.addChild(vehicle);
+      }
+    }
 
     // Draw on props update
-    if (ownVehicle, vehicle1, vehicle2) {
-      this.draw(ownVehicle, vehicle1, vehicle2)
+    if (ego, vehicles) {
+      this.draw(ego, vehicles);
     }
 
     return (

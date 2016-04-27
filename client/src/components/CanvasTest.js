@@ -12,7 +12,7 @@ class CanvasTest extends Component {
   componentDidMount() {
     let canvas = findDOMNode(this.refs.canvas)
     this.stage = new createjs.Stage(canvas)
-    this.stage.x = canvas.width / 2 - (2097*0.01)/2
+    this.stage.x = canvas.width / 2 - (2097*0.03)/2
     this.stage.y = canvas.height / 2;
     //this.draw(0,6397675.946148769,320194.38247808425)
   }
@@ -24,7 +24,7 @@ class CanvasTest extends Component {
     var vehicleHeight = 4635;
     var vehicleWidth = 2097;
     var roadWidth = 4000;
-    var scale = 0.02;
+    var scale = 0.03;
 
     var vehicle = new createjs.Bitmap(images.transport);
     var otherVehicle = new createjs.Bitmap(images.otherTransport);
@@ -33,21 +33,21 @@ class CanvasTest extends Component {
     var testEast = ownVehicle.easting;
     var testNorth  = ownVehicle.northing;
 
-    vehicle.x = -(testEast - ownVehicle.easting)*1000*scale;
-    vehicle.y = -(ownVehicle.northing - testNorth)*1000*scale;
+    vehicle.x = (ownVehicle.easting - testEast)*1000*scale;
+    vehicle.y = (-ownVehicle.northing + testNorth)*1000*scale;
     vehicle.scaleX = (vehicleWidth/100)*scale;
     vehicle.scaleY = (vehicleHeight/178)*scale;
     vehicle.rotation = ownVehicle.heading;
 
-    console.log((vehicle1.easting - ownVehicle.easting) + " " + (vehicle1.northing - ownVehicle.northing));
+    console.log(vehicle1.heading);
 
-    otherVehicle.x = -(testEast - vehicle1.easting)*1000*scale;
-    otherVehicle.y = -(vehicle1.northing - testNorth)*1000*scale;
+    otherVehicle.x = (vehicle1.easting - testEast)*1000*scale;
+    otherVehicle.y = (-vehicle1.northing + testNorth)*1000*scale;
     otherVehicle.rotation = vehicle1.heading;
     otherVehicle.scaleX = (vehicleWidth/100)*scale;
     otherVehicle.scaleY = (vehicleHeight/178)*scale;
-    otherVehicle2.x = -(testEast - vehicle2.easting)*1000*scale;
-    otherVehicle2.y = -(vehicle2.northing-testNorth)*1000*scale;
+    otherVehicle2.x = (vehicle2.easting - testEast)*1000*scale;
+    otherVehicle2.y = (-vehicle2.northing+testNorth)*1000*scale;
     otherVehicle2.rotation = vehicle2.heading;
     otherVehicle2.scaleX = (vehicleWidth/100)*scale;
     otherVehicle2.scaleY = (vehicleHeight/178)*scale;
@@ -59,7 +59,7 @@ class CanvasTest extends Component {
     this.stage.rotation = (-ownVehicle.heading);
 
     var y = -50;
-    var plusX = (2097*0.05)/2;
+    var plusX = (2097*0.03)/2;
     for(var i = 0; i<256; i=i+3){
       var leftLine = new createjs.Shape();
       var rightLine = new createjs.Shape();
@@ -77,6 +77,8 @@ class CanvasTest extends Component {
       y = y+1;
       leftLine.graphics.lineTo(-((vehicleWidth*scale)/2)-25+ plusX, y);
       rightLine.graphics.lineTo(((vehicleWidth*scale)/2)+25+ plusX, y);
+      leftLine.rotation = ownVehicle.heading;
+      rightLine.rotation = ownVehicle.heading
       this.stage.addChild(leftLine);
       this.stage.addChild(rightLine);
     }
@@ -85,12 +87,14 @@ class CanvasTest extends Component {
     lineLeft.graphics.beginStroke("white")
     lineLeft.graphics.moveTo(-((vehicleWidth*scale)/2)-25+ plusX,y);
     lineLeft.graphics.lineTo(-((vehicleWidth*scale)/2)-25+ plusX,400);
+    lineLeft.rotation = (ownVehicle.heading);
     this.stage.addChild(lineLeft);
 
     var lineRight = new createjs.Shape();
     lineRight.graphics.beginStroke("white")
     lineRight.graphics.moveTo(((vehicleWidth*scale)/2)+25+ plusX,y);
     lineRight.graphics.lineTo(((vehicleWidth*scale)/2)+25+ plusX,400);
+    lineRight.rotation = ownVehicle.heading;
     this.stage.addChild(lineRight);
 
 

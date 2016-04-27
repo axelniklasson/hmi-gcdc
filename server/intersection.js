@@ -37,8 +37,8 @@ server.on('message', (packet, remote) => {
 
     if(counter === 10){
     io.emit('intersectionData', data); 
-    counter = 0;  
-    }
+   counter = 0;  
+   }
 
     counter++;
 });

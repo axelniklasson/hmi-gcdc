@@ -1,5 +1,6 @@
 export default {
-    transport: require('./transport.png'),
+    transport: require('./transport2.png'),
     otherTransport: require('./otherTransport.png'),
-    line: require('./line.png')
+    line: require('./line.png'),
+    road: require('./road.png')
 }

@@ -15,23 +15,26 @@ class CanvasTest extends Component {
   }
 
   componentDidMount() {
+    let canvas = findDOMNode(this.refs.canvas)
+    this.stage = new createjs.Stage(canvas);
+    this.stage.x = canvas.width / 2 - (this.vehicleWidth * this.scale)/ 2;
+    this.stage.y = canvas.height / 2 + 40;
     this.drawEgo();
   }
 
   // Prepare stage for drawing
   drawEgo() {
-    let canvas = findDOMNode(this.refs.canvas)
-    this.stage = new createjs.Stage(canvas);
-    this.stage.x = canvas.width / 2 - (this.vehicleWidth * this.scale)/ 2;
-    this.stage.y = canvas.height / 2 + 40;
-
-    this.ego = new createjs.Bitmap(images.transport);
-    this.ego.x = 0;
-    this.ego.y = 0;
+    if (!this.ego) {
+      this.ego = new createjs.Bitmap(images.transport);
+      this.ego.x = 0;
+      this.ego.y = 0;
+    }
     this.ego.scaleX = (this.vehicleWidth / 100) * this.scale;
     this.ego.scaleY = (this.vehicleHeight / 178) * this.scale;
 
-    this.road = new createjs.Bitmap(images.road);
+    if (!this.road) {
+      this.road = new createjs.Bitmap(images.road);
+    }
     this.road.x = -(this.roadWidth*this.scale)/2 + (this.vehicleWidth * this.scale)/  2;
     this.road.scaleX = (this.roadWidth/120) * this.scale;
 

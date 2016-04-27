@@ -46,7 +46,7 @@ class CanvasTest extends Component {
     this.stage.addChild(this.road);
     this.stage.addChild(this.ego);
 
-    this.ego.image.onload = () => this.stage.update()
+    this.road.image.onload = () => this.stage.update()
   }
 
   init() {

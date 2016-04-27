@@ -34,7 +34,7 @@ var counter = 0;
 
 server.on('message', (packet, remote) => {
 
-    if (counter % 10 == 0) {
+    if (counter % 7 == 0) {
         var data = parse(packet);
         console.log(data);
         io.emit('intersectionData', data); 

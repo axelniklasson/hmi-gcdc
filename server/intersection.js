@@ -20,8 +20,8 @@ const LABELS = [
     'longAcc',
     'latVel',
     'yawRate',
-    'easting',
-    'northing'
+    'x',
+    'y'
 ];
 
 server.on('error', (err) => {
@@ -36,7 +36,7 @@ server.on('message', (packet, remote) => {
 
     if (counter % 10 == 0) {
         var data = parse(packet);
-        console.log('data received');
+        console.log(data);
         io.emit('intersectionData', data); 
     }
 
@@ -46,6 +46,7 @@ server.on('message', (packet, remote) => {
 function parse(packet) {
     var uInts = [];
     var resultArr = [{}, {}, {}];
+    var egoVehicle = {};
 
     var index = 0;
     for (var value of packet.values()) {
@@ -90,7 +91,33 @@ function parse(packet) {
         if (binary[0] === 1){
             decimal = -decimal;
         }
-        resultArr[parseInt(index/13)][LABELS[index % 13]] = decimal;
+
+        var vehicleIndex = parseInt(index/13);
+        if (parseInt(index / 13) == 0) {
+            resultArr[vehicleIndex][LABELS[index % 13]] = decimal;
+        } else {
+            switch(index % 13) {
+                // calculate relative heading
+                case 6:
+                    resultArr[vehicleIndex][LABELS[index % 13]] = decimal - resultArr[0].heading;
+                    break;
+
+                // calculate relative x coordinate
+                case 11:
+                    resultArr[vehicleIndex][LABELS[index % 13]] = (decimal - resultArr[0].x) * 1000;
+                    break;
+
+                // calculate relative y coordinate
+                case 12:
+                    resultArr[vehicleIndex][LABELS[index % 13]] = (-decimal + resultArr[0].y) * 1000;
+                    break;
+
+                // no calculations needed
+                default:
+                    resultArr[vehicleIndex][LABELS[index % 13]] = decimal
+                    break;
+            }
+        }
         index++;
     }
 

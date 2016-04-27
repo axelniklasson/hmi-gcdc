@@ -2,10 +2,12 @@ import React, { Component } from 'react'
 import { findDOMNode } from 'react-dom'
 import createjs from 'createjs-collection'
 import images from '../images'
+import ZoomButtons from './ZoomButtons'
 
 class CanvasTest extends Component {
   constructor(props) {
     super(props)
+    this.updateScale = this.updateScale.bind(this);
   }
 
   componentWillMount() {
@@ -54,6 +56,11 @@ class CanvasTest extends Component {
     lineRight.graphics.lineTo(((this.vehicleWidth*this.scale)/2)+25+ plusX,400);
     this.stage.addChild(lineRight);
 
+    this.ego = new createjs.Bitmap(images.transport);
+    this.ego.x = 0;
+    this.ego.y = 0;
+    this.ego.scaleX = (this.vehicleWidth / 100) * this.scale;
+    this.ego.scaleY = (this.vehicleHeight / 178) * this.scale;
     this.stage.addChild(this.ego);
 
     this.ego.image.onload = () => this.stage.update()
@@ -65,13 +72,6 @@ class CanvasTest extends Component {
     this.vehicleWidth = 2097;
     this.roadWidth = 4000;
     this.scale = 0.03;
-
-    this.ego = new createjs.Bitmap(images.transport);
-    this.ego.x = 0;
-    this.ego.y = 0;
-    this.ego.scaleX = (this.vehicleWidth / 100) * this.scale;
-    this.ego.scaleY = (this.vehicleHeight / 178) * this.scale;
-
     this.otherVehicles = [];
   }
 
@@ -79,15 +79,24 @@ class CanvasTest extends Component {
   draw(ego, vehicles) {
     for (var i = 0; i < vehicles.length; i++) {
       var vehicle = vehicles[i];
-      this.otherVehicles[i].x = (vehicle.easting - ego.easting) * 1000 * this.scale;
-      this.otherVehicles[i].y = (-vehicle.northing + ego.northing) * 1000 * this.scale;
-      this.otherVehicles[i].rotation = vehicle.heading - ego.heading;
+      this.otherVehicles[i].x = vehicle.x * this.scale;
+      this.otherVehicles[i].y = vehicle.y * this.scale;
+      this.otherVehicles[i].rotation = vehicle.heading;
       this.otherVehicles[i].scaleX = (this.vehicleWidth / 100) * this.scale;
       this.otherVehicles[i].scaleY = (this.vehicleHeight / 178) * this.scale;
     }
-
     
     this.stage.update()
+  }
+
+  updateScale(zoom) {
+    if (zoom == 1) {
+      this.scale += 0.005;
+    } else {
+      this.scale -= 0.005;
+    }
+    this.draw();
+    this.stage.update();
   }
 
   render() {
@@ -109,11 +118,12 @@ class CanvasTest extends Component {
 
     return (
       <div>
+        <ZoomButtons updateScale={ this.updateScale } />
         <canvas 
           className="container"
           ref="canvas"
-          width={980}
-          height={1300} />
+          width={ 980 }
+          height={ 1300 } />
       </div>
     )
   }

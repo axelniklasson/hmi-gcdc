@@ -5,7 +5,7 @@ import CanvasTest from './CanvasTest'
 
 const Top = ({ ego, vehicles }) => (
   <div styleName="container">
-      <CanvasTest ego={ ego } vehicles={ vehicles } />
+    <CanvasTest ego={ ego } vehicles={ vehicles } />
   </div>
 )
 

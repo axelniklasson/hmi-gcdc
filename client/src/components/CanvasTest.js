@@ -53,7 +53,7 @@ class CanvasTest extends Component {
     this.vehicleHeight = 4635;
     this.vehicleWidth = 2097;
     this.roadWidth = 4000;
-    this.scale = 0.04;
+    this.scale = 0.0275;
     this.otherVehicles = [];
   }
 
@@ -76,7 +76,7 @@ class CanvasTest extends Component {
   }
 
   updateScale(zoom) {
-    if (zoom == 1 && this.scale < 0.05) {
+    if (zoom == 1 && this.scale < 0.04) {
       this.scale += 0.0025;
     } else if (zoom == 0 && this.scale > 0.015) {
       this.scale -= 0.0025;

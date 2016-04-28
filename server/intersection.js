@@ -36,7 +36,6 @@ server.on('message', (packet, remote) => {
 
     if (counter % 7 == 0) {
         var data = parse(packet);
-        console.log(data);
         io.emit('intersectionData', data); 
     }
 
@@ -97,7 +96,7 @@ function parse(packet) {
             resultArr[vehicleIndex][LABELS[index % 13]] = decimal;
         } else {
             switch(index % 13) {
-                
+
                 // calculate relative x coordinate
                 case 11:
                     resultArr[vehicleIndex][LABELS[index % 13]] = (decimal - resultArr[0].x) * 1000;

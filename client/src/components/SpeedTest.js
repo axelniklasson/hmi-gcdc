@@ -14,15 +14,16 @@ class SpeedTest extends Component {
     this.stage.x = 140
     this.stage.y = 140
 
-    this.draw(this.props.speed)
+    this.draw(0)
   }
 
   // Create the drawing logic
   draw(speed) {
-    var outerRadius = 135;
-    var smallLineRadius = 130;
-    var bigLineRadius = 115;
-    var textRadius = 90;
+    var outerRadius = 130;
+    var smallLineRadius = 120;
+    var bigLineRadius = 110;
+    var miniLineRadius = 120;
+    var textRadius = 85;
     var innerRadius = 70;
     var increase = 1;
 
@@ -31,10 +32,10 @@ class SpeedTest extends Component {
     var j = 180;
     for(var i = 0; i>=-Math.PI; i = i- (20*Math.PI/180)){
         let pil = new createjs.Shape();
-        var fromX = Math.cos(i-2*Math.PI/180) * outerRadius;
-        var fromY = Math.sin(i-2*Math.PI/180) * outerRadius;
-        var fromX2 = Math.cos(i+2*Math.PI/180) * outerRadius;
-        var fromY2 = Math.sin(i+2*Math.PI/180) * outerRadius;
+        var fromX = Math.cos(i-0.8*Math.PI/180) * outerRadius;
+        var fromY = Math.sin(i-0.8*Math.PI/180) * outerRadius;
+        var fromX2 = Math.cos(i+0.8*Math.PI/180) * outerRadius;
+        var fromY2 = Math.sin(i+0.8*Math.PI/180) * outerRadius;
         var toX  = Math.cos(i) * bigLineRadius;
         var toY = Math.sin(i) * bigLineRadius;
         pil.graphics.beginFill("white");
@@ -52,6 +53,22 @@ class SpeedTest extends Component {
             this.stage.addChild(text);
         }
         j= j-20;
+    }
+
+    for(var i = 0; i>=-Math.PI; i = i- (5*Math.PI/180)){
+        let miniPil = new createjs.Shape();
+        var fromX = Math.cos(i-0.2*Math.PI/180) * outerRadius;
+        var fromY = Math.sin(i-0.2*Math.PI/180) * outerRadius;
+        var fromX2 = Math.cos(i+0.2*Math.PI/180) * outerRadius;
+        var fromY2 = Math.sin(i+0.2*Math.PI/180) * outerRadius;
+        var toX  = Math.cos(i) * miniLineRadius;
+        var toY = Math.sin(i) * miniLineRadius;
+        miniPil.graphics.beginFill("white");
+        miniPil.graphics.moveTo(fromX, fromY);
+        miniPil.graphics.lineTo(fromX2, fromY2);
+        miniPil.graphics.lineTo(toX,toY);
+        miniPil.graphics.lineTo(fromX, fromY);
+        this.stage.addChild(miniPil);
     }
 
       let innerLine = new createjs.Shape();
@@ -73,7 +90,7 @@ class SpeedTest extends Component {
       nail.graphics.lineTo(ToX,ToY);
       this.stage.addChild(nail);
 
-      var speedText = new createjs.Text(Math.round(speed), "36px sans-serif", "white");
+      var speedText = new createjs.Text(Math.round(speed), "40px sans-serif", "white");
       var speedX;
       if(speed > 99){
           speedX = -25;
@@ -90,12 +107,12 @@ class SpeedTest extends Component {
 
   render() {
     // Extract props
-    //const { speed } = this.props
+    const { speed } = this.props
 
     // Draw on props update
-    //if (speed) {
-      //this.draw(speed)
-    //}
+    if (speed) {
+      this.draw(speed)
+    }
 
     return (
       <div>

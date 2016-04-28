@@ -12,35 +12,33 @@ class Acceleration extends Component {
   componentDidMount() {
     let canvas = findDOMNode(this.refs.canvas)
     this.stage = new createjs.Stage(canvas)
-
-    this.draw(this.props.acceleration)
   }
 
-  draw(acceleration) {    this.stage.removeAllChildren()
-
+  draw(acceleration) {    
+    this.stage.removeAllChildren()
 
     if(acceleration>0){
       var green = 255;
-      for(var i = 135; i>=0;i--){
+      for(var i = 127; i>=0;i--){
         var color = "rgb(0,";
         color = color +green;
         color = color +",0)";
             let innerLine = new createjs.Shape();
             innerLine.graphics.beginStroke(color);
-            innerLine.graphics.arc(150,150,i,-Math.PI/2 + (12.5*acceleration*Math.PI/180),-Math.PI/2, true);
+            innerLine.graphics.arc(140,137,i,-Math.PI/2 + (12.5*acceleration*Math.PI/180),-Math.PI/2, true);
             this.stage.addChild(innerLine);
             green = green-3;
       }
     }else{
       var red = 255;
-      for(var i = 135; i>=0;i--){
+      for(var i = 127; i>=0;i--){
         var color = "rgb(";
         color = color + red;
         color = color + ",0,0)";
 
             let innerLine = new createjs.Shape();
             innerLine.graphics.beginStroke(color);
-            innerLine.graphics.arc(150,150,i,-Math.PI/2,-Math.PI/2 + (acceleration*12.5*Math.PI/180), true);
+            innerLine.graphics.arc(140,137,i,-Math.PI/2,-Math.PI/2 + (acceleration*12.5*Math.PI/180), true);
             this.stage.addChild(innerLine);
             red = red-3;
       }
@@ -50,10 +48,11 @@ class Acceleration extends Component {
   }
 
   render() {
-    //let acceleration = this.props.acceleration
-    //if(acceleration) {
-    //  this.draw(acceleration)
-    //}
+    let acceleration = this.props.acceleration
+    
+    if(acceleration) {
+      this.draw(acceleration)
+    }
 
     return (
       <div styleName="container">
@@ -61,7 +60,7 @@ class Acceleration extends Component {
           <canvas
             className="container"
             ref="canvas"
-            width={244}
+            width={275}
             height={131} />
         </div>
       </div>

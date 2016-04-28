@@ -108,8 +108,8 @@ class CanvasTest extends Component {
         <canvas 
           className="container"
           ref="canvas"
-          width={ 980 }
-          height={ 1300 } />
+          width={ 768 }
+          height={ 1024 } />
       </div>
     )
   }

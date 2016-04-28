@@ -9,20 +9,23 @@ class MiniMap extends Component {
 
   componentWillMount(){
     this.init();
+    console.log("componentwillmount");
   }
 
   componentDidMount() {
+    console.log("componentdidmount");
     let canvas = findDOMNode(this.refs.canvas)
     this.stage = new createjs.Stage(canvas);
     this.stage.x = canvas.width / 2 - (this.vehicleWidth * this.scale)/2;
-    this.stage.y = canvas.height - (this.vehicleHeight*this.scale);
+    this.stage.y = canvas.height - (this.vehicleHeight*this.scale) - 20 ;
     this.canvas = canvas;
     this.drawEgo();
   }
 
   drawEgo(){
     if(!this.ego){
-      this.ego = new createjs.Bitmap(images.transport);
+      this.ego = new createjs.Bitmap(images.miniEgo);
+      console.log("createEgo")
       this.ego.x = 0;
       this.ego.y = 0;
     }
@@ -35,7 +38,8 @@ class MiniMap extends Component {
 
     this.road.x = -(this.roadWidth*this.scale)/2 + (this.vehicleWidth * this.scale)/  2;
     this.road.scaleX = (this.roadWidth/120) * this.scale;
-
+    this.stage.addChild(this.road);
+    this.stage.addChild(this.ego);
 
     this.road.image.onload = () => this.stage.update()
   }
@@ -44,7 +48,7 @@ class MiniMap extends Component {
     this.vehicleHeight = 4635;
     this.vehicleWidth = 2097;
     this.roadWidth = 4000;
-    this.scale = 0.01;
+    this.scale = 0.005;
     this.otherVehicles = [];
   }
 
@@ -68,12 +72,12 @@ class MiniMap extends Component {
   render() {
     const { ego, vehicles } = this.props
 
-
+    console.log("render");
     if (this.otherVehicles.length == 0 && ego && vehicles) {
       for (var i = 0; i < vehicles.length; i++) {
-        var vehicle = new createjs.Bitmap(images.otherTransport);
+        var vehicle = new createjs.Bitmap(images.miniOther);
         this.otherVehicles.push(vehicle);
-        this.stage.addChild(vehicle);
+       this.stage.addChild(vehicle);
       }
     }
 

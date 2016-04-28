@@ -97,11 +97,7 @@ function parse(packet) {
             resultArr[vehicleIndex][LABELS[index % 13]] = decimal;
         } else {
             switch(index % 13) {
-                // calculate relative heading
-                case 6:
-                    resultArr[vehicleIndex][LABELS[index % 13]] = decimal;
-                    break;
-
+                
                 // calculate relative x coordinate
                 case 11:
                     resultArr[vehicleIndex][LABELS[index % 13]] = (decimal - resultArr[0].x) * 1000;

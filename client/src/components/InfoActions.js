@@ -14,9 +14,6 @@ class InfoActions extends Component {
       <div styleName="container">
         <div styleName="circle">
           <div styleName="inner-box">
-            <div styleName="icon">
-              ♤
-            </div>
             <div styleName="text">
               Some information from the system
             </div>

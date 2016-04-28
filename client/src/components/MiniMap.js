@@ -33,7 +33,7 @@ class MiniMap extends Component {
     this.ego.scaleY = (this.vehicleHeight/178)*this.scale;
 
     if(!this.road){
-      this.road = new createjs.Bitmap(images.road);
+      this.road = new createjs.Bitmap(images.miniRoad);
     }
 
     this.road.x = -(this.roadWidth*this.scale)/2 + (this.vehicleWidth * this.scale)/  2;

@@ -74,7 +74,7 @@ class SpeedTest extends Component {
       let innerLine = new createjs.Shape();
       innerLine.graphics.beginStroke("white");
       innerLine.graphics.arc(0,0,innerRadius,0,Math.PI, true);
-      //this.stage.addChild(innerLine);
+      this.stage.addChild(innerLine);
 
       var FromX = (Math.cos((speed-180)*Math.PI/180)*outerRadius);
       var FromY = (Math.sin((speed-180)*Math.PI/180)*outerRadius);

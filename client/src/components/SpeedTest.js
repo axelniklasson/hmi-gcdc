@@ -13,14 +13,16 @@ class SpeedTest extends Component {
     this.stage = new createjs.Stage(canvas)
     this.stage.x = 140
     this.stage.y = 140
+
+    this.draw(this.props.speed)
   }
 
   // Create the drawing logic
   draw(speed) {
-    var outerRadius = 125;
-    var smallLineRadius = 115;
-    var bigLineRadius = 100;
-    var textRadius = 80;
+    var outerRadius = 135;
+    var smallLineRadius = 130;
+    var bigLineRadius = 115;
+    var textRadius = 90;
     var innerRadius = 70;
     var increase = 1;
 
@@ -71,7 +73,7 @@ class SpeedTest extends Component {
       nail.graphics.lineTo(ToX,ToY);
       this.stage.addChild(nail);
 
-      var speedText = new createjs.Text(Math.round(speed), "30px sans-serif", "white");
+      var speedText = new createjs.Text(Math.round(speed), "36px sans-serif", "white");
       var speedX;
       if(speed > 99){
           speedX = -25;
@@ -88,20 +90,20 @@ class SpeedTest extends Component {
 
   render() {
     // Extract props
-    const { speed } = this.props
+    //const { speed } = this.props
 
     // Draw on props update
-    if (speed) {
-      this.draw(speed)
-    }
+    //if (speed) {
+      //this.draw(speed)
+    //}
 
     return (
       <div>
         <canvas 
           className="container"
           ref="canvas"
-          width={500}
-          height={250} />
+          width={275}
+          height={175} />
       </div>
     )
   }

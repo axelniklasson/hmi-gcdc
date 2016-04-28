@@ -12,6 +12,8 @@ class Acceleration extends Component {
   componentDidMount() {
     let canvas = findDOMNode(this.refs.canvas)
     this.stage = new createjs.Stage(canvas)
+
+    this.draw(this.props.acceleration)
   }
 
   draw(acceleration) {    this.stage.removeAllChildren()
@@ -48,10 +50,10 @@ class Acceleration extends Component {
   }
 
   render() {
-    let acceleration = this.props.acceleration
-    if(acceleration) {
-      this.draw(acceleration)
-    }
+    //let acceleration = this.props.acceleration
+    //if(acceleration) {
+    //  this.draw(acceleration)
+    //}
 
     return (
       <div styleName="container">

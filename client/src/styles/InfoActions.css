@@ -1,7 +1,8 @@
 .container {
-  width: 60%;
+  width: 50%;
   height: 100%;
   z-index: 1;
+  display: all;
 }
 
 .circle {
@@ -38,8 +39,9 @@
 .text {
   height: 55%;
   width: 80%;
-  padding: 10px 50px 20px;
+  margin-top: 50px;
+  padding: 30px 50px 20px;
   text-align: center;
-  font-size: 36px;
+  font-size: 30px;
   font-weight: 100;
 }

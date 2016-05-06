@@ -5,7 +5,9 @@ import styles from '../styles/App'
 import Top from './Top'
 import Bottom from './Bottom'
 
-const socket = require('socket.io-client')('http://172.20.10.3:3000');
+import Loading from './Loading'
+
+const socket = require('socket.io-client')('http://localhost:3000');
 
 class App extends Component {
   constructor(props) {
@@ -30,16 +32,28 @@ class App extends Component {
   }
 
   render() {
-    return (
+    var loading = true;
+
+    if(loading){
+      return (
       <div styleName="container">
         <div styleName="top">
-          <Top ego={this.state.ego} vehicles={this.state.vehicles} />
-        </div>
-        <div styleName="bottom">
-          <Bottom speed={this.state.speed} acceleration={this.state.acceleration} />
+          <Loading />
         </div>
       </div>
-    )
+     )
+    }else{
+      return (
+        <div styleName="container">
+          <div styleName="top">
+            <Top ego={this.state.ego} vehicles={this.state.vehicles} />
+          </div>
+          <div styleName="bottom">
+            <Bottom speed={this.state.speed} acceleration={this.state.acceleration} />
+          </div>
+        </div>
+      )
+    }
   }
 }
 

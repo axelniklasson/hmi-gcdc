@@ -10,34 +10,44 @@ class CanvasTest extends Component {
 
 
   componentDidMount() {
-    let canvas = findDOMNode(this.refs.canvas)
-    this.stage = new createjs.Stage(canvas);
-    this.stage.x = canvas.width / 2;
-    this.stage.y = canvas.height / 2;
+    this.canvas = findDOMNode(this.refs.canvas)
+    this.stage = new createjs.Stage(this.canvas);
+    this.stage.x = this.canvas.width / 2;
+    this.stage.y = this.canvas.height / 2;
     this.number = 0;
     this.outerRadius = 10;
     this.innerRadius = 0;
     this.stepDegree = 5;
     this.numberOfLines = (Math.PI*2)/(this.stepDegree*Math.PI/180);
-    this.draw();
+    this.gradient = new createjs.Bitmap(images.gradient);
+    this.road = new createjs.Bitmap(images.road);
+    this.ego = new createjs.Bitmap(images.transport);
+    this.ac = new createjs.Bitmap(images.ac);
+    this.settings = new createjs.Bitmap(images.settings);
+    this.gps = new createjs.Bitmap(images.gps);
+    this.phone = new createjs.Bitmap(images.phone);
+    this.music = new createjs.Bitmap(images.music);
+    this.settings.image.onload = () => this.drawManual();
   }
 
-  // Prepare stage for drawing
+  drawManual(){
+    this.stage.addChild(this.settings);
+    this.stage.update();
+  }
  
 
   // Create the drawing logic
   draw() {
-      var gradient = new createjs.Bitmap(images.gradient);
-      gradient.x = -220;
-      this.stage.addChild(gradient);
-      this.stage.update();
     this.makeBig(this);
     }
 
   load(that){
 
     var loading = setInterval(function(){
-      that.stage.removeAllChildren();
+      var rect = new createjs.Shape();
+      rect.graphics.beginFill("white").drawRect(-that.canvas.width/2, -that.canvas.height/2, that.canvas.width, that.canvas.height);
+     that.stage.removeAllChildren();
+     that.stage.addChild(rect);
       var counter = 0;
       for(var i = -Math.PI/2; i<=Math.PI*2-Math.PI/2; i = i+(that.stepDegree*Math.PI/180)){
         let line = new createjs.Shape();
@@ -74,9 +84,8 @@ class CanvasTest extends Component {
         counter++;
       }
 
-      var gradient = new createjs.Bitmap(images.gradient);
-      gradient.x = -220;
-      that.stage.addChild(gradient);
+      that.gradient.x = -220;
+      that.stage.addChild(that.gradient);
       that.stage.update();
       if(that.number < that.numberOfLines){
         that.number++;
@@ -179,21 +188,19 @@ class CanvasTest extends Component {
       that.stage.removeAllChildren();
 
       
-      var road = new createjs.Bitmap(images.road);
-      road.scaleX = (roadWidth/120)*scale;
+      that.road.scaleX = (roadWidth/120)*scale;
       roadX = roadX +xRoadStep + xEgoStep;
       roadY = roadY + yStep;
-      road.x = roadX;
-      road.y = roadY;
-      that.stage.addChild(road);
-      var ego = new createjs.Bitmap(images.transport);
-      ego.scaleX = (vehicleWidth / 100) * scale;
-      ego.scaleY = (vehicleHeight / 178) * scale;
+      that.road.x = roadX;
+      that.road.y = roadY;
+      that.stage.addChild(that.road);
+      that.ego.scaleX = (vehicleWidth / 100) * scale;
+      that.ego.scaleY = (vehicleHeight / 178) * scale;
       egoX = egoX + xEgoStep;
       egoY = egoY + yStep;
-      ego.x = egoX;
-      ego.y = egoY;
-      that.stage.addChild(ego);
+      that.ego.x = egoX;
+      that.ego.y = egoY;
+      that.stage.addChild(that.ego);
 
 
       that.stage.update();

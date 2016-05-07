@@ -11,7 +11,7 @@ class InfoBox extends Component {
     return (
       <div styleName="container"> 
         <div styleName="text">
-          Some information from the system
+         "Some information from the system"
         </div>
         <div styleName="icon">
           ♤

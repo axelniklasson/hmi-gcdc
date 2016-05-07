@@ -4,7 +4,6 @@ import styles from '../styles/App'
 
 import Top from './Top'
 import Bottom from './Bottom'
-
 import Loading from './Loading'
 
 const socket = require('socket.io-client')('http://localhost:3000');

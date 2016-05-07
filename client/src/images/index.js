@@ -3,5 +3,10 @@ export default {
     otherTransport: require('./otherTransport.png'),
     line: require('./line.png'),
     road: require('./road.png'),
-    gradient: require('./gradient.png')
+    gradient: require('./gradient.png'),
+    ac: require('./ac.png'),
+    gps: require('./gps.png'),
+    music: require('./music.png'),
+    phone: require('./phone.png'),
+    settings: require('./settings.png')
 }

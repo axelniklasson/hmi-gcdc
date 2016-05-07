@@ -8,5 +8,7 @@ export default {
     gps: require('./gps.png'),
     music: require('./music.png'),
     phone: require('./phone.png'),
-    settings: require('./settings.png')
+    settings: require('./settings.png'),
+    menuGradient: require('./menuGradient.png'),
+    blueGradient: require('./blueGradient.png')
 }

@@ -27,11 +27,125 @@ class CanvasTest extends Component {
     this.gps = new createjs.Bitmap(images.gps);
     this.phone = new createjs.Bitmap(images.phone);
     this.music = new createjs.Bitmap(images.music);
-    this.settings.image.onload = () => this.drawManual();
+    this.settingsGradient = new createjs.Bitmap(images.menuGradient);
+    this.acGradient = new createjs.Bitmap(images.menuGradient);
+    this.gpsGradient = new createjs.Bitmap(images.menuGradient);
+    this.phoneGradient = new createjs.Bitmap(images.menuGradient);
+    this.musicGradient = new createjs.Bitmap(images.menuGradient);
+    this.bottomGradient = new createjs.Bitmap(images.blueGradient);
+    this.music.image.onload = () => this.drawManual();
   }
 
   drawManual(){
+
+    var ySpace = this.canvas.height / 8 + 10;
+
+
+    this.settings.scaleX = 0.2;
+    this.settings.scaleY = 0.2;
+    this.settings.x = (-this.canvas.width)/2 + 50;
+    this.settings.y = -this.canvas.height/2 + 30;
+    this.settingsGradient.x = (-this.canvas.width)/2;
+    this.settingsGradient.y = (-this.canvas.height)/2;
+    this.settingsGradient.scaleY = 0.6;
+    this.stage.addChild(this.settingsGradient);
+    var settingsText = new createjs.Text("Vehicle Settings", "30px sans-serif", "white");
+    settingsText.x = (-this.canvas.width)/2 + 130;
+    settingsText.y = -this.canvas.height/2 + 70;
+    settingsText.textBaseline = "alphabetic";
+    this.stage.addChild(settingsText);
+
+    this.gps.scaleX = 0.2;
+    this.gps.scaleY = 0.2;
+    this.gps.x = -this.canvas.width/2 + 50;
+    this.gps.y = -this.canvas.height/2 +  ySpace;
+    this.gpsGradient.x = (-this.canvas.width)/2;
+    this.gpsGradient.y = (-this.canvas.height)/2 + ySpace -20;
+    this.gpsGradient.scaleY = 0.6;
+    this.stage.addChild(this.gpsGradient);
+    var gpsText = new createjs.Text("Navigation", "30px sans-serif", "white");
+    gpsText.x = (-this.canvas.width)/2 + 130;
+    gpsText.y = -this.canvas.height/2  + 30 + ySpace;
+    gpsText.textBaseline = "alphabetic";
+    this.stage.addChild(gpsText);
+    var routeText = new createjs.Text("Current Route: ", "20px sans-serif", "white");
+    routeText.x = (-this.canvas.width)/2 + 130;
+    routeText.y = -this.canvas.height/2 + 60 + ySpace;
+    routeText.textBaseline = "alphabetic";
+    this.stage.addChild(routeText);
+
+
+    this.ac.scaleX = 0.2;
+    this.ac.scaleY = 0.2;
+    this.ac.x = -this.canvas.width/2  + 50;
+    this.ac.y = -this.canvas.height/2 +  2*ySpace - 20;
+    this.acGradient.x = (-this.canvas.width)/2;
+    this.acGradient.y = (-this.canvas.height)/2 + 2*ySpace -40;
+    this.acGradient.scaleY = 0.6;
+    var acText = new createjs.Text("Climate Control", "30px sans-serif", "white");
+    acText.x = (-this.canvas.width)/2 + 130;
+    acText.y = -this.canvas.height/2 + 10 + 2*ySpace;
+    acText.textBaseline = "alphabetic";
+    this.stage.addChild(acText);
+    var climateText = new createjs.Text("Fan Level: 3", "20px sans-serif", "white");
+    climateText.x = (-this.canvas.width)/2 + 130;
+    climateText.y = -this.canvas.height/2 + 40 + 2*ySpace;
+    climateText.textBaseline = "alphabetic";
+    this.stage.addChild(climateText);
+
+
+    this.stage.addChild(this.acGradient);
+    this.phone.scaleX = 0.2;
+    this.phone.scaleY = 0.2;
+    this.phone.x = -this.canvas.width/2 + 50;
+    this.phone.y = -this.canvas.height/2 +  3*ySpace - 40;
+    this.phoneGradient.x = (-this.canvas.width)/2;
+    this.phoneGradient.y = (-this.canvas.height)/2 + 3*ySpace -60;
+    this.phoneGradient.scaleY = 0.6;
+    this.stage.addChild(this.phoneGradient);
+    var phoneText = new createjs.Text("Phone", "30px sans-serif", "white");
+    phoneText.x = (-this.canvas.width)/2 + 130;
+    phoneText.y = -this.canvas.height/2 -10 + 3*ySpace;
+    phoneText.textBaseline = "alphabetic";
+    this.stage.addChild(phoneText);
+    var connectedText = new createjs.Text("Connected To Linnea's iPhone", "20px sans-serif", "white");
+    connectedText.x = (-this.canvas.width)/2 + 130;
+    connectedText.y = -this.canvas.height/2 + 20 + 3*ySpace;
+    connectedText.textBaseline = "alphabetic";
+    this.stage.addChild(connectedText);
+
+    this.music.scaleX = 0.2;
+    this.music.scaleY = 0.2;
+    this.music.x = -this.canvas.width/2 + 50;
+    this.music.y = -this.canvas.height/2 +  4*ySpace - 60;
+    this.musicGradient.x = (-this.canvas.width)/2;
+    this.musicGradient.y = (-this.canvas.height)/2 + 4*ySpace -80;
+    this.musicGradient.scaleY = 0.6;
+    this.bottomGradient.x = (-this.canvas.width)/2;
+    this.bottomGradient.y = (-this.canvas.height)/2 + 5*ySpace -100;
+    this.bottomGradient.scaleY = 1.1;
+    var phoneText = new createjs.Text("Music", "30px sans-serif", "white");
+    phoneText.x = (-this.canvas.width)/2 + 130;
+    phoneText.y = -this.canvas.height/2 -30 + 4*ySpace;
+    phoneText.textBaseline = "alphabetic";
+    this.stage.addChild(phoneText);
+    var connectedText = new createjs.Text("Currently playing: a song", "20px sans-serif", "white");
+    connectedText.x = (-this.canvas.width)/2 + 130;
+    connectedText.y = -this.canvas.height/2 + 4*ySpace;
+    connectedText.textBaseline = "alphabetic";
+    this.stage.addChild(connectedText);
+
+
+    var rect = new createjs.Shape();
+    rect.graphics.beginFill("rgb(23,52,83").drawRect((-this.canvas.width)/2, 298, this.canvas.width, 200);
+    this.stage.addChild(rect);
+    this.stage.addChild(this.bottomGradient);
+    this.stage.addChild(this.musicGradient);
+    this.stage.addChild(this.music);
+    this.stage.addChild(this.phone);
     this.stage.addChild(this.settings);
+    this.stage.addChild(this.gps);
+    this.stage.addChild(this.ac);
     this.stage.update();
   }
  
@@ -44,10 +158,7 @@ class CanvasTest extends Component {
   load(that){
 
     var loading = setInterval(function(){
-      var rect = new createjs.Shape();
-      rect.graphics.beginFill("white").drawRect(-that.canvas.width/2, -that.canvas.height/2, that.canvas.width, that.canvas.height);
-     that.stage.removeAllChildren();
-     that.stage.addChild(rect);
+      that.stage.removeAllChildren();
       var counter = 0;
       for(var i = -Math.PI/2; i<=Math.PI*2-Math.PI/2; i = i+(that.stepDegree*Math.PI/180)){
         let line = new createjs.Shape();

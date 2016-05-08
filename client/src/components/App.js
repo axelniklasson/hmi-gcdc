@@ -40,7 +40,7 @@ class App extends Component {
           <Loading />
         </div>
         <div styleName="bottom">
-         <Bottom speed={this.state.speed} acceleration={this.state.acceleration} />
+         <Bottom speed={this.state.speed} acceleration={this.state.acceleration} loading={loading} />
         </div>
       </div>
      )
@@ -51,7 +51,7 @@ class App extends Component {
             <Top ego={this.state.ego} vehicles={this.state.vehicles} />
           </div>
                   <div styleName="bottom">
-         <Bottom speed={this.state.speed} acceleration={this.state.acceleration} />
+         <Bottom speed={this.state.speed} acceleration={this.state.acceleration} loading={loading} />
         </div>
         </div>
       )

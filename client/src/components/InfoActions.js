@@ -10,17 +10,34 @@ class InfoActions extends Component {
   }
 
   render() {
-    return (
-      <div styleName="container">
-        <div styleName="circle">
-          <div styleName="inner-box">
-            <div styleName="text">
-              Some information from the system
+    var { loading } = this.props;
+
+    if(loading){
+      return (
+        <div styleName="container">
+          <div styleName="circle">
+            <div styleName="inner-box">
+              <div styleName="text">
+                Manual
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    )
+      )
+    }else{
+       return (
+        <div styleName="container">
+          <div styleName="circle">
+            <div styleName="inner-box">
+              <div styleName="text">
+                Some information from the system
+              </div>
+            </div>
+          </div>
+        </div>
+      )
+    }
+
   }
 }
 

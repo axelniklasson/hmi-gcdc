@@ -9,15 +9,25 @@ class Speed extends Component {
   }
 
   render() {
-    var { speed } = this.props;
+    var { speed, loading } = this.props;
 
-    return (
-      <div styleName="container">
+    if(loading){
+      return (
+       <div styleName="container">
+        <div styleName="circle">
+          
+        </div>
+      </div>
+     )
+   }else{
+          return (
+       <div styleName="container">
         <div styleName="circle">
           <SpeedTest speed={speed}/>
         </div>
       </div>
-    )
+     )
+   }
   }
 }
 

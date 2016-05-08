@@ -33,7 +33,8 @@ class CanvasTest extends Component {
     this.phoneGradient = new createjs.Bitmap(images.menuGradient);
     this.musicGradient = new createjs.Bitmap(images.menuGradient);
     this.bottomGradient = new createjs.Bitmap(images.blueGradient);
-    this.music.image.onload = () => this.drawManual();
+    this.steeringWheel = new createjs.Bitmap(images.steeringWheel);
+    this.steeringWheel.image.onload = () => this.drawManual();
   }
 
   drawManual(){
@@ -135,11 +136,26 @@ class CanvasTest extends Component {
     connectedText.textBaseline = "alphabetic";
     this.stage.addChild(connectedText);
 
+    this.steeringWheel.scaleX = 0.3;
+    this.steeringWheel.scaleY = 0.3;
+    this.steeringWheel.x = -this.canvas.width/2 + 30;
+    this.steeringWheel.y = (-this.canvas.height)/2 + 5*ySpace -70;
+    var autonomousText = new createjs.Text("Autonomous Driving Available", "30px sans-serif", "white");
+    autonomousText.x = (-this.canvas.width)/2 + 130;
+    autonomousText.y = -this.canvas.height/2 + 5*ySpace -40;
+    autonomousText.textBaseline = "alphabetic";
+    this.stage.addChild(autonomousText);
+    var activateText = new createjs.Text("Slide up to activate", "20px sans-serif", "white");
+    activateText.x = (-this.canvas.width)/2 + 130;
+    activateText.y = -this.canvas.height/2 + 5*ySpace -10;
+    activateText.textBaseline = "alphabetic";
+    this.stage.addChild(activateText);
 
     var rect = new createjs.Shape();
-    rect.graphics.beginFill("rgb(23,52,83").drawRect((-this.canvas.width)/2, 298, this.canvas.width, 200);
+    rect.graphics.beginFill("rgb(10,110,44").drawRect((-this.canvas.width)/2, 298, this.canvas.width, 200);
     this.stage.addChild(rect);
     this.stage.addChild(this.bottomGradient);
+    this.stage.addChild(this.steeringWheel);
     this.stage.addChild(this.musicGradient);
     this.stage.addChild(this.music);
     this.stage.addChild(this.phone);

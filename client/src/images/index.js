@@ -10,5 +10,6 @@ export default {
     phone: require('./phone.png'),
     settings: require('./settings.png'),
     menuGradient: require('./menuGradient.png'),
-    blueGradient: require('./blueGradient.png')
+    blueGradient: require('./blueGradient.png'),
+    steeringWheel: require('./steeringWheel.png')
 }

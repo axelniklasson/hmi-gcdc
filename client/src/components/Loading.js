@@ -238,7 +238,7 @@ class Loading extends Component {
       counter++;
     }
 
-   }, 10);
+   }, 50);
 
   }
 
@@ -263,7 +263,7 @@ class Loading extends Component {
         clearInterval(interval);
         that.makeBig(that);
       }
-    }, 10)
+    }, 20)
   }
 
   // Create the drawing logic
@@ -569,6 +569,7 @@ class Loading extends Component {
   render() {
     return (
       <div styleName="top">
+
         <div>
          <canvas 
           className="container"

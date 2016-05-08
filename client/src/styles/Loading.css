@@ -124,3 +124,19 @@
 .infoboxText {
   font-size: 26px;
 }
+
+.miniMap {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 250px;
+  margin-top: 50px;
+  background-color: rgba(0, 0, 0, 0.4);
+  border-radius: 50px 0 0 50px;
+  border: 5px solid rgba(162, 196, 218, 0.3);
+  border-right: none;
+  width: 200px;
+  height: 250px;
+  z-index: 1000;
+  overflow: hidden;
+}

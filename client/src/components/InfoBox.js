@@ -8,16 +8,6 @@ class InfoBox extends Component {
   }
 
   render() {
-    var { loading } = this.props;
-    if(loading){
-      return (
-        <div styleName="container"> 
-          <div styleName="text">
-                                                   Manual Driving
-          </div>
-        </div>
-      )
-    }else{
       return (
         <div styleName="container"> 
           <div styleName="text">
@@ -28,7 +18,6 @@ class InfoBox extends Component {
           </div>
         </div>
       )
-  }
   }
 }
 

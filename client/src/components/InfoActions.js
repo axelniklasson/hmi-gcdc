@@ -10,21 +10,8 @@ class InfoActions extends Component {
   }
 
   render() {
-    var { loading } = this.props;
+    var {} = this.props;
 
-    if(loading){
-      return (
-        <div styleName="container">
-          <div styleName="circle">
-            <div styleName="inner-box">
-              <div styleName="text">
-                Manual
-              </div>
-            </div>
-          </div>
-        </div>
-      )
-    }else{
        return (
         <div styleName="container">
           <div styleName="circle">
@@ -36,7 +23,7 @@ class InfoActions extends Component {
           </div>
         </div>
       )
-    }
+    
 
   }
 }

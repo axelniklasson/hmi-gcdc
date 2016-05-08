@@ -36,12 +36,7 @@ class App extends Component {
     if(loading){
       return (
       <div styleName="container">
-        <div styleName="top">
           <Loading />
-        </div>
-        <div styleName="bottom">
-         <Bottom speed={this.state.speed} acceleration={this.state.acceleration} loading={loading} />
-        </div>
       </div>
      )
     }else{
@@ -51,7 +46,7 @@ class App extends Component {
             <Top ego={this.state.ego} vehicles={this.state.vehicles} />
           </div>
                   <div styleName="bottom">
-         <Bottom speed={this.state.speed} acceleration={this.state.acceleration} loading={loading} />
+         <Bottom speed={this.state.speed} acceleration={this.state.acceleration}/>
         </div>
         </div>
       )

@@ -8,12 +8,12 @@ import Acceleration from './Acceleration'
 
 class Dashboard extends Component {
     render() {
-        var { speed, acceleration, loading } = this.props;
+        var { speed, acceleration} = this.props;
 
         return (
             <div styleName="container">
-                <Speed speed={speed} loading = {loading}/>
-                <InfoActions loading={loading}/>
+                <Speed speed={speed}/>
+                <InfoActions/>
                 <Acceleration acceleration={acceleration} />
             </div>
         )

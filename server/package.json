@@ -10,7 +10,8 @@
   "scripts": {
     "intersection": "nodemon ./intersection.js",
     "platooning": "nodemon ./platooning.js",
-    "emergency": "nodemon ./emergency.js"
+    "emergency": "nodemon ./emergency.js",
+    "demo": "nodemon ./demo.js"
   },
   "dependencies": {
     "binary": "^0.3.0",

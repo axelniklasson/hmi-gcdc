@@ -4,7 +4,7 @@ import createjs from 'createjs-collection'
 import images from '../images'
 import ZoomButtons from './ZoomButtons'
 
-class CanvasTest extends Component {
+class MainScreen extends Component {
   constructor(props) {
     super(props)
     this.updateScale = this.updateScale.bind(this);
@@ -115,4 +115,4 @@ class CanvasTest extends Component {
   }
 }
 
-export default CanvasTest
+export default MainScreen

@@ -15,7 +15,7 @@ class InfoActions extends Component {
         <div styleName="circle">
           <div styleName="inner-box">
             <div styleName="text">
-              Some information from the system
+              Action taken by the vehicle
             </div>
           </div>
         </div>

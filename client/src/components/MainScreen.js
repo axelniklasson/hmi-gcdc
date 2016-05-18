@@ -212,7 +212,7 @@ drawBlinkers() {
     for (var i = 0; i < vehicles.length; i++) {
       var vehicle = vehicles[i];
 
-      var x = vehicle.x * this.scale;
+      var x = -1 * (vehicle.x * this.scale);
       var y = vehicle.y * this.scale;
       var angle = ego.heading;
       var xrot = Math.cos(-angle*Math.PI/180)*x - Math.sin(-angle*Math.PI/180)*y;

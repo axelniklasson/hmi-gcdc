@@ -12,10 +12,10 @@ var startX = 1000;
 var startY = 2000;
 var data = {};
 var ego = {
-    flags: [ 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+    flags: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
     ID: 170,
     speed: 6.19,
-    acceleration: -3,
+    acceleration: 3,
     heading: 3.127,
     x: 682276.32,
     y: 5705847.19,

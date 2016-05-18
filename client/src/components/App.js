@@ -38,7 +38,7 @@ class App extends Component {
           <Top ego={this.state.ego} vehicles={this.state.vehicles} />
         </div>
         <div styleName="bottom">
-          <Bottom speed={this.state.speed} acceleration={this.state.acceleration} egoFlags={this.state.egoFlags} />
+          <Bottom speed={this.state.speed} acceleration={this.state.acceleration} flags={this.state.egoFlags} />
         </div>
       </div>
     )

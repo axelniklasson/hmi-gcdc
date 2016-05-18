@@ -48,7 +48,7 @@ class Accelerometer extends Component {
   }
 
   render() {
-    var { acceleration, egoFlags } = this.props;
+    var { acceleration, flags } = this.props;
     
     if(acceleration) {
       this.draw(acceleration)
@@ -61,7 +61,12 @@ class Accelerometer extends Component {
             className="container"
             ref="canvas"
             width={275}
-            height={131} />
+            height={105} />
+          <div styleName="text">
+            <span style={flags[0] === 1 ? {color: "white"} : {color: "#444"}}>B</span>
+            <span style={flags[0] === 0 && acceleration < 0 ? {color: "white"} : {color: "#444"}}>D</span>
+            <span style={acceleration > 0 ? {color: "white"} : {color: "#444"}}>A</span>
+          </div>
         </div>
       </div>
     )

@@ -18,6 +18,12 @@ module.exports = {
     var roadWidth = this.parseSingle(packet.slice(44, 48));
     var competitionDist = this.parseSingle(packet.slice(48, 52));
 
+    if (acceleration < -0.5) {
+        flags[0] = 1;
+    } else {
+        flags[0] = 0;
+    }
+
     var ego = {};
     var egoLabels = labels.getEgoLabels();
     ego[egoLabels[0]] = flags;
@@ -49,8 +55,8 @@ module.exports = {
             var heading = this.parseSingle(currentVehicle.slice(12, 16));
             var x = this.parseDouble(currentVehicle.slice(16, 24)) * 1000;
             var y = this.parseDouble(currentVehicle.slice(24, 32)) * 1000;
-            var width = this.parseSingle(currentVehicle.slice(32, 36));
-            var length = this.parseSingle(currentVehicle.slice(36, 40));
+            var width = this.parseSingle(currentVehicle.slice(32, 36)) * 1000;
+            var length = this.parseSingle(currentVehicle.slice(36, 40)) * 1000;
 
             var vehicle = {};
             vehicle[vehicleLabels[0]] = flags;

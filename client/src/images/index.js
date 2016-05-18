@@ -1,6 +1,6 @@
 export default {
     ego: require('./ego.png'),
-    prius: require('./prius.png'),
+    vehicle: require('./vehicle.png'),
     transport: require('./transport2.png'),
     otherTransport: require('./otherTransport.png'),
     line: require('./line.png'),
@@ -16,5 +16,6 @@ export default {
     construction: require('./icon-construction.png'),
     intersectionRight: require('./icon-intersection-right.png'),
     intersectionLeft: require('./icon-intersection-left.png'),
-    emergency: require('./icon-emergency.png')
+    emergency: require('./icon-emergency.png'),
+    empty: require('./icon-empty.png')
 }

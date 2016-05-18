@@ -11,38 +11,35 @@ class InfoBox extends Component {
   render() {
     const { flags } = this.props;
 
-    let message = "";
-    var icon = null;
+    var message = "";
+    var icon = images.empty;
 
-    let testMessage = "Intersection. Incoming vehicle from the Right";
-    var testIcon = images.intersectionRight;
-
-    switch(flags) {
-      case flags[5] === 1: // Construction site discovered
-        message = "Construction site ahead";
-        icon = images.construction;
-      case flags[9] === 1 && flags[10] === 1: // Incoming vehicle, right
-        message = "Intersection. Incoming vehicle from the Right";
-        icon = images.intersectionRight;
-      case flags[9] === 1 && flags[10] === 1: // Incoming vehicle, left
-        message = "Intersection. Incoming vehicle from the Left";
-        icon = images.intersectionLeft;
-      case flags[12] === 1: // EV incoming
-        message = "Emergency vehicle approaching";
-        icon = images.emergency;
-      case flags[14] === 1: // In yieldning position
-        message = "Emergency vehicle passing";
-        icon = images.emergency;
-      case flags[12] === 0 && flags[14] === 1: // EV gone, In yieldning position
-        message = "Emergency vehicle passed";
-        icon = images.emergency;
-      default:
-        message = "";
-        icon = null;
+    if(flags[5] === 1) {
+      message = "Construction site ahead";
+      icon = images.construction;
+    } else if(flags[9] === 1 && flags[10] === 1) {
+      message = "Intersection. Incoming vehicle from the Right";
+      icon = images.intersectionRight;
+    } else if(flags[9] === 1 && flags[10] === 1) {
+      message = "Intersection. Incoming vehicle from the Left";
+      icon = images.intersectionLeft;
+    } else if(flags[12] === 1) {
+      message = "Emergency vehicle approaching";
+      icon = images.emergency;
+    } else if(flags[14] === 1) {
+      message = "Emergency vehicle passing";
+      icon = images.emergency;
+    } else if(flags[12] === 0 && flags[14] === 1) {
+      message = "Emergency vehicle passed";
+      icon = images.emergency;
+    } else {
+      message = "";
+      icon = images.empty;
     }
     
     return (
       <div styleName="container">
+        <img src={icon} />
         <div styleName="text">{message}</div>
       </div>
     )

@@ -220,7 +220,6 @@ class MainScreen extends Component {
         var diff = 400 - yrot;
         this.otherVehicles[i].vehicle.alpha = diff*0.01;
         this.otherVehicles[i].indicator.alpha = 1 - diff*0.01;
-        console.log(diff*0.01);
 
       }else if(xrot > 412){
         this.otherVehicles[i].indicator.x = 412 - 300;
@@ -247,7 +246,6 @@ class MainScreen extends Component {
         var diff = -(xrot + 355);
         if(diff < 100000*this.scale){
           this.otherVehicles[i].indicator.alpha = 1 - diff/(100000*this.scale);
-          console.log(this.otherVehicles[i].indicator.alpha);  
 
         }else{
           this.otherVehicles[i].indicator.alpha = 0;

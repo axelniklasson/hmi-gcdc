@@ -4,7 +4,7 @@ import createjs from 'createjs-collection'
 import CSSModules from 'react-css-modules'
 import styles from '../styles/Acceleration'
 
-class Acceleration extends Component {
+class Accelerometer extends Component {
   constructor(props) {
     super(props)
   }
@@ -68,4 +68,4 @@ class Acceleration extends Component {
   }
 }
 
-export default CSSModules(Acceleration, styles)
+export default CSSModules(Accelerometer, styles)

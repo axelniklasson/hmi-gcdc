@@ -9,11 +9,9 @@ class MiniMap extends Component {
 
   componentWillMount(){
     this.init();
-    console.log("componentwillmount");
   }
 
   componentDidMount() {
-    console.log("componentdidmount");
     let canvas = findDOMNode(this.refs.canvas)
     this.stage = new createjs.Stage(canvas);
     this.stage.x = canvas.width / 2 - (this.vehicleWidth * this.scale)/2;
@@ -25,7 +23,6 @@ class MiniMap extends Component {
   drawEgo(){
     if(!this.ego){
       this.ego = new createjs.Bitmap(images.miniEgo);
-      console.log("createEgo")
       this.ego.x = 0;
       this.ego.y = 0;
     }
@@ -72,7 +69,6 @@ class MiniMap extends Component {
   render() {
     const { ego, vehicles } = this.props
 
-    console.log("render");
     if (this.otherVehicles.length == 0 && ego && vehicles) {
       for (var i = 0; i < vehicles.length; i++) {
         var vehicle = new createjs.Bitmap(images.miniOther);

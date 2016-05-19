@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import CSSModules from 'react-css-modules'
 import styles from '../styles/Speed'
-import SpeedTest from './SpeedTest'
+import Speedometer from './Speedometer'
 
 class Speed extends Component {
   constructor(props) {
@@ -14,7 +14,7 @@ class Speed extends Component {
     return (
       <div styleName="container">
         <div styleName="circle">
-          <SpeedTest speed={speed}/>
+          <Speedometer speed={speed}/>
         </div>
       </div>
     )

@@ -86,7 +86,13 @@ module.exports = {
             count++;
         }
     }
-    return binary.reverse();
+    var reversed = binary.reverse();
+
+    var result = 0;
+    for (var j = 0; j < reversed.length; j++) {
+        result += reversed[j] * Math.pow(2, j);
+    }
+    return result;
   },
   parseUint16: function(data) {
     var binary = [];

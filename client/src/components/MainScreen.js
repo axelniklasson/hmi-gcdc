@@ -30,12 +30,12 @@ class MainScreen extends Component {
   // Draw blinkers
   drawBlinkers() {
     if (this.counter < 5) {
-      this.blinkerTopRight.x = this.vehicleWidth * this.scale;
-      this.blinkerTopRight.y = 0;
+      this.blinkerTopRight.x = this.vehicleWidth * this.scale - 25;
+      this.blinkerTopRight.y = -15;
       this.stage.addChild(this.blinkerTopRight);
 
-      this.blinkerBottomRight.x = this.vehicleWidth * this.scale - 5;
-      this.blinkerBottomRight.y = this.vehicleHeight * this.scale;
+      this.blinkerBottomRight.x = this.vehicleWidth * this.scale - 30;
+      this.blinkerBottomRight.y = this.vehicleHeight * this.scale - 30;
       this.stage.addChild(this.blinkerBottomRight);
       this.counter++;
     } else if (this.counter > 10) {

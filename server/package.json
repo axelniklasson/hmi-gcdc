@@ -12,7 +12,7 @@
     "platooning": "nodemon ./platooning.js",
     "emergency": "nodemon ./emergency.js",
     "vehicle": "nodemon ./vehicle.js",
-    "demo": "nodemon ./demo.js"
+    "lanes": "nodemon ./lanes.js"
   },
   "dependencies": {
     "binary": "^0.3.0",

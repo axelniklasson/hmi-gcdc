@@ -19,12 +19,11 @@ class App extends Component {
   }
 
   componentDidMount() {
-    socket.on('intersectionData', (data) => {
+    socket.on('vehicleData', (data) => {
       this.setState({
         ego: data[0],
-        speed: data[0].speed * 3.6,
-        acceleration: data[0].longAcc,
-        vehicles: data.splice(1)
+        speed: data[0].speed,
+        acceleration: data[0].longAcc
       })
     })
   }

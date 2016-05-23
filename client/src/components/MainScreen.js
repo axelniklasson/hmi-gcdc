@@ -21,7 +21,31 @@ class MainScreen extends Component {
     this.stage.y = canvas.height / 2 + 40;
 
     this.canvas = canvas;
+    this.counter = 0;
+    this.blinkerTopRight = new createjs.Bitmap(images.blinker);
+    this.blinkerBottomRight = new createjs.Bitmap(images.blinker);
     this.drawEgo();
+  }
+
+  // Draw blinkers
+  drawBlinkers() {
+    if (this.counter < 5) {
+      this.blinkerTopRight.x = this.vehicleWidth * this.scale;
+      this.blinkerTopRight.y = 0;
+      this.stage.addChild(this.blinkerTopRight);
+
+      this.blinkerBottomRight.x = this.vehicleWidth * this.scale - 5;
+      this.blinkerBottomRight.y = this.vehicleHeight * this.scale;
+      this.stage.addChild(this.blinkerBottomRight);
+      this.counter++;
+    } else if (this.counter > 10) {
+      this.counter = 0; 
+    } else if (this.counter >= 5) {
+      this.stage.removeChild(this.blinkerTopRight);
+      this.stage.removeChild(this.blinkerBottomRight);
+      this.counter++;
+    } 
+    this.stage.update();
   }
 
   // Prepare stage for drawing
@@ -40,10 +64,18 @@ class MainScreen extends Component {
     if (!this.road) {
       this.road = new createjs.Bitmap(images.road);
     }
-    this.road.x = -(this.roadWidth*this.scale)/2 + (this.vehicleWidth * this.scale)/  2;
+    // this.road.x = -(this.roadWidth*this.scale)/2 + (this.vehicleWidth * this.scale)/  2;
     this.road.scaleX = (this.roadWidth/120) * this.scale;
 
+    this.leftLane = new createjs.Bitmap(images.road);
+    this.rightLane = new createjs.Bitmap(images.road);
+
+    this.leftLane.scaleX = (this.roadWidth/120) * this.scale;
+    this.rightLane.scaleX = (this.roadWidth/120) * this.scale;
+
     this.stage.addChild(this.road);
+    this.stage.addChild(this.leftLane);
+    this.stage.addChild(this.rightLane);
     this.stage.addChild(this.ego);
 
     this.road.image.onload = () => this.stage.update()
@@ -58,20 +90,30 @@ class MainScreen extends Component {
   }
 
   // Create the drawing logic
-  draw(ego, vehicles) {
-    for (var i = 0; i < vehicles.length; i++) {
-      this.ego.rotation = ego.heading;
-      this.road.rotation = ego.heading;
+  draw(ego) {
+    this.ego.rotation = ego.heading;
+    this.road.rotation = ego.heading;
+    this.leftLane.rotation = ego.heading;
+    this.rightLane.rotation = ego.heading;
+    this.stage.rotation = -ego.heading;
+    ego.distanceToLaneC = -ego.distanceToLaneC;
 
-      var vehicle = vehicles[i];
-      this.otherVehicles[i].x = vehicle.x * this.scale;
-      this.otherVehicles[i].y = vehicle.y * this.scale;
-      this.otherVehicles[i].rotation = vehicle.heading;
-      this.otherVehicles[i].scaleX = (this.vehicleWidth / 100) * this.scale;
-      this.otherVehicles[i].scaleY = (this.vehicleHeight / 178) * this.scale;
+    this.road.x = -(this.roadWidth*this.scale)/2 + (this.vehicleWidth * this.scale)/2 + (ego.distanceToLaneC * this.scale);
+
+    // Fade in lane marking
+    if (ego.distanceToLaneC < -500) {
+      this.rightLane.x = this.road.x + this.roadWidth * this.scale;
+      this.rightLane.alpha = (Math.abs(ego.distanceToLaneC) - 500) * 0.001;
+      this.leftLane.alpha = 0;
+    } else if (ego.distanceToLaneC > 500) {
+      this.leftLane.x = this.road.x - this.roadWidth * this.scale;
+      this.leftLane.alpha = (Math.abs(ego.distanceToLaneC) - 500) * 0.001;
+      this.rightLane.alpha = 0;
+    } else {
+      this.rightLane.alpha = 0;
+      this.leftLane.alpha = 0;
     }
 
-    this.stage.rotation = -ego.heading;
     this.stage.update()
   }
 
@@ -87,19 +129,20 @@ class MainScreen extends Component {
 
   render() {
     // Extract props
-    const { ego, vehicles } = this.props;
+    const { ego } = this.props;
 
-    if (this.otherVehicles.length == 0 && ego && vehicles) {
-      for (var i = 0; i < vehicles.length; i++) {
-        var vehicle = new createjs.Bitmap(images.otherTransport);
-        this.otherVehicles.push(vehicle);
-        this.stage.addChild(vehicle);
-      }
-    }
+    // if (this.otherVehicles.length == 0 && ego && vehicles) {
+    //   for (var i = 0; i < vehicles.length; i++) {
+    //     var vehicle = new createjs.Bitmap(images.otherTransport);
+    //     this.otherVehicles.push(vehicle);
+    //     this.stage.addChild(vehicle);
+    //   }
+    // }
 
     // Draw on props update
-    if (ego, vehicles) {
-      this.draw(ego, vehicles);
+    if (ego) {
+      this.draw(ego);
+      this.drawBlinkers();
     }
 
     return (

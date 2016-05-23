@@ -46,16 +46,9 @@ data.vehicles[1] = { "flags": 29127,
 
 var increment = true;
 setInterval(function() {
-    if (increment) {
-        data.ego.distanceToLaneC += 70;
-    } else {
-        data.ego.distanceToLaneC -= 70;
-    }
+    data.ego.distanceToLaneC += 70;
 
     if (data.ego.distanceToLaneC > 2000) {
-        increment = false;
-    } else if (data.ego.distanceToLaneC < -2000) {
-        increment = true;
         data.ego.distanceToLaneC = -2000;
     }
 

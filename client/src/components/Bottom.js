@@ -7,15 +7,15 @@ import InfoBox from './InfoBox'
 
 class Bottom extends Component {
   render() {
-    var { speed, acceleration } = this.props;
+    var { speed, acceleration, egoFlags } = this.props;
 
     return (
       <div styleName="container">
         <div styleName="dashboard-container">
-          <Dashboard speed={speed} acceleration={acceleration} />
+          <Dashboard speed={speed} acceleration={acceleration} egoFlags={egoFlags} />
         </div>
         <div styleName="info-container">
-          <InfoBox />
+          <InfoBox egoFlags={egoFlags} />
         </div>
       </div>  
     )

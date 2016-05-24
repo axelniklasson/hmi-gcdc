@@ -5,17 +5,18 @@ import styles from '../styles/InfoActions'
 class InfoActions extends Component {
   constructor(props) {
     super(props)
-
-    // const socket = require('socket.io-client')('http://localhost:3000');
   }
 
   render() {
+    const { egoFlags } = this.props;
+    var message = '';
+
     return (
       <div styleName="container">
         <div styleName="circle">
           <div styleName="inner-box">
             <div styleName="text">
-              Action taken by the vehicle
+              {message}
             </div>
           </div>
         </div>

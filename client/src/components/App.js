@@ -12,6 +12,7 @@ class App extends Component {
     super(props)
     this.state = {
       ego: 0,
+      egoFlags: 0,
       speed: 0,
       acceleration: 0,
       speed: 0
@@ -19,12 +20,13 @@ class App extends Component {
   }
 
   componentDidMount() {
-    socket.on('intersectionData', (data) => {
+    socket.on('vehicleData', (data) => {
       this.setState({
-        ego: data[0],
-        speed: data[0].speed * 3.6,
-        acceleration: data[0].longAcc,
-        vehicles: data.splice(1)
+        ego: data.ego,
+        egoFlags: data.ego.flags,
+        speed: data.ego.speed * 3.6,
+        acceleration: data.ego.longAcc,
+        vehicles: data.vehicles
       })
     })
   }
@@ -36,7 +38,7 @@ class App extends Component {
           <Top ego={this.state.ego} vehicles={this.state.vehicles} />
         </div>
         <div styleName="bottom">
-          <Bottom speed={this.state.speed} acceleration={this.state.acceleration} />
+          <Bottom speed={this.state.speed} acceleration={this.state.acceleration} egoFlags={this.state.egoFlags} />
         </div>
       </div>
     )

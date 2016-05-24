@@ -6,5 +6,9 @@ export default {
     miniEgo: require('./miniEgo.png'),
     miniOther: require('./miniOther.png'),
     miniRoad: require('./miniRoad.png'),
-    indicator: require('./indicator.png')
+    indicator: require('./indicator.png'),
+    blinker: require('./blinker.png'),
+    brake: require('./brake.png'),
+    zoomIn: require('./zoom-in.png'),
+    zoomOut: require('./zoom-out.png')
 }

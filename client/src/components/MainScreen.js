@@ -21,7 +21,74 @@ class MainScreen extends Component {
     this.stage.y = canvas.height / 2 + 40;
 
     this.canvas = canvas;
+    this.counter = 0;
+    this.counter2 = 0;
+    this.drawRightBlinkers = false;
+    this.drawLeftBlinkers = false;
+    this.brakeLeft = new createjs.Bitmap(images.brake);
+    this.brakeRight = new createjs.Bitmap(images.brake);
+    this.blinkerTopRight = new createjs.Bitmap(images.blinker);
+    this.blinkerBottomRight = new createjs.Bitmap(images.blinker);
+    this.blinkerTopLeft = new createjs.Bitmap(images.blinker);
+    this.blinkerBottomLeft = new createjs.Bitmap(images.blinker);
     this.drawEgo();
+  }
+
+  drawBrakeLights() {
+    if (this.braking) {
+      this.brakeLeft.x = 0 - this.brakeLeft.getBounds().width / 2;
+      this.brakeLeft.y = this.vehicleHeight * this.scale - this.brakeLeft.getBounds().height / 2;
+      this.stage.addChild(this.brakeLeft);
+
+      this.brakeRight.x = this.vehicleWidth * this.scale - 30;
+      this.brakeRight.y = this.vehicleHeight * this.scale - this.brakeRight.getBounds().height / 2;
+      this.stage.addChild(this.brakeRight);
+    } else {
+      this.stage.removeChild(this.brakeLeft);
+      this.stage.removeChild(this.brakeRight);
+    }
+    this.stage.update();
+  }
+
+  drawBlinkers() {
+    if (this.drawRightBlinkers == true) {
+      if (this.counter < 5) {
+        this.blinkerTopRight.x = this.vehicleWidth * this.scale - 27;
+        this.blinkerTopRight.y = 0 - this.blinkerTopLeft.getBounds().height / 2;
+        this.stage.addChild(this.blinkerTopRight);
+
+        this.blinkerBottomRight.x = this.vehicleWidth * this.scale - 30;
+        this.blinkerBottomRight.y = this.vehicleHeight * this.scale - this.blinkerBottomRight.getBounds().height / 2;
+        this.stage.addChild(this.blinkerBottomRight);
+        this.counter++;
+      } else if (this.counter > 10) {
+        this.counter = 0; 
+      } else if (this.counter >= 5) {
+        this.stage.removeChild(this.blinkerTopRight);
+        this.stage.removeChild(this.blinkerBottomRight);
+        this.counter++;
+      } 
+    }
+
+    if (this.drawLeftBlinkers == true) {
+      if (this.counter2 < 5) {
+        this.blinkerTopLeft.x = 0 - this.blinkerTopLeft.getBounds().width / 2;
+        this.blinkerTopLeft.y = 0 - this.blinkerTopLeft.getBounds().height / 2;
+        this.stage.addChild(this.blinkerTopLeft);
+
+        this.blinkerBottomLeft.x = 0 - this.blinkerTopLeft.getBounds().width / 2;
+        this.blinkerBottomLeft.y = this.vehicleHeight * this.scale - this.blinkerTopLeft.getBounds().height / 2;
+        this.stage.addChild(this.blinkerBottomLeft);
+        this.counter2++;
+      } else if (this.counter2 > 10) {
+        this.counter2 = 0; 
+      } else if (this.counter2 >= 5) {
+        this.stage.removeChild(this.blinkerTopLeft);
+        this.stage.removeChild(this.blinkerBottomLeft);
+        this.counter2++;
+      } 
+    }
+    this.stage.update();
   }
 
   // Prepare stage for drawing
@@ -192,6 +259,29 @@ class MainScreen extends Component {
   render() {
     // Extract props
     const { ego, vehicles } = this.props;
+    if (ego.flags) {
+      if (ego.flags[0] == 1) {
+        this.braking = true;
+        this.drawBrakeLights();
+      } else if (ego.flags[0] == 0) {
+        this.braking = false;
+        this.drawBrakeLights();
+      }
+
+      if (ego.flags[1]) {
+        this.drawLeftBlinkers = true;
+        this.drawBlinkers();
+      } else if (ego.flags[0]) {
+        this.drawLeftBlinkers = false;
+      }
+
+      if (ego.flags[2]) {
+        this.drawRightBlinkers = true;
+        this.drawBlinkers();
+      } else if (ego.flags[0]) {
+        this.drawRightBlinkers = false;
+      }
+    }
 
     if (this.otherVehicles.length == 0 && ego && vehicles) {
       for (var i = 0; i < vehicles.length; i++) {

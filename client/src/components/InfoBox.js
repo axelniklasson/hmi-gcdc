@@ -8,13 +8,15 @@ class InfoBox extends Component {
   }
 
   render() {
+    var { egoFlags } = this.props;
+    var message = '';
+    
     return (
       <div styleName="container"> 
         <div styleName="text">
-          Cause of vehicle behaviour
+          {message}
         </div>
         <div styleName="icon">
-          ♤
         </div>
       </div>
     )

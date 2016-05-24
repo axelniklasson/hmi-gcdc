@@ -48,7 +48,7 @@ class Accelerometer extends Component {
   }
 
   render() {
-    let acceleration = this.props.acceleration
+    var { acceleration, egoFlags } = this.props;
     
     if(acceleration) {
       this.draw(acceleration)

@@ -1,8 +1,8 @@
 var labels = require('./labels.js');
 
 module.exports = {
-  parse: function(packet) {
-    var data = [];
+  parse: function(packet, callback) {
+    var data = {};
 
     // Extract ego data
     var flags = this.parseFlags(packet.slice(0, 2));
@@ -35,6 +35,7 @@ module.exports = {
     data.ego = ego;
 
     // Extract other vehicles data
+    console.log(data);
     data.vehicles = [];
     var vehicleLabels = labels.getVehicleLabels();
     var vehiclesData = packet.slice(52);
@@ -65,7 +66,7 @@ module.exports = {
             data.vehicles[i] = vehicle;
         }
     }
-    return data;
+    return callback(data);
   },
   parseFlags: function(data) {
     var binary = [];
@@ -86,13 +87,7 @@ module.exports = {
             count++;
         }
     }
-    var reversed = binary.reverse();
-
-    var result = 0;
-    for (var j = 0; j < reversed.length; j++) {
-        result += reversed[j] * Math.pow(2, j);
-    }
-    return result;
+    return binary.reverse();
   },
   parseUint16: function(data) {
     var binary = [];

@@ -43,10 +43,22 @@ class MainScreen extends Component {
     this.road.x = -(this.roadWidth*this.scale)/2 + (this.vehicleWidth * this.scale)/  2;
     this.road.scaleX = (this.roadWidth/120) * this.scale;
 
+    //var angle = 90;
+    //var x = 412;
+    //var y = 300;
+    //var xrot = Math.cos(-angle*Math.PI/180)*x - Math.sin(-angle*Math.PI/180)*y;
+    //var yrot = Math.sin(-angle*Math.PI/180)*x + Math.cos(-angle*Math.PI/180)*y;
+    //console.log(xrot + ", " + yrot);
+    //var circle = new createjs.Shape();
+    //circle.graphics.beginFill("white");
+    //circle.graphics.drawCircle(xrot,yrot,5);
+    //this.stage.addChild(circle);
+
     this.stage.addChild(this.road);
     this.stage.addChild(this.ego);
 
     this.road.image.onload = () => this.stage.update()
+
   }
 
   init() {
@@ -60,20 +72,112 @@ class MainScreen extends Component {
   // Create the drawing logic
   draw(ego, vehicles) {
     for (var i = 0; i < vehicles.length; i++) {
-      this.ego.rotation = ego.heading;
-      this.road.rotation = ego.heading;
+     // this.ego.rotation = ego.heading;
+     // this.road.rotation = ego.heading;
 
       var vehicle = vehicles[i];
-      this.otherVehicles[i].x = vehicle.x * this.scale;
-      this.otherVehicles[i].y = vehicle.y * this.scale;
-      this.otherVehicles[i].rotation = vehicle.heading;
-      this.otherVehicles[i].scaleX = (this.vehicleWidth / 100) * this.scale;
-      this.otherVehicles[i].scaleY = (this.vehicleHeight / 178) * this.scale;
+
+      var x = vehicle.x * this.scale;
+      var y = vehicle.y * this.scale;
+      var angle = ego.heading;
+      var xrot = Math.cos(-angle*Math.PI/180)*x - Math.sin(-angle*Math.PI/180)*y;
+      var yrot = Math.sin(-angle*Math.PI/180)*x + Math.cos(-angle*Math.PI/180)*y;
+      this.otherVehicles[i].vehicle.alpha = 0;
+      this.otherVehicles[i].vehicle.x = xrot;
+      this.otherVehicles[i].vehicle.y = yrot;
+      this.otherVehicles[i].vehicle.rotation = vehicle.heading-ego.heading;
+      this.otherVehicles[i].vehicle.scaleX = (this.vehicleWidth / 100) * this.scale;
+      this.otherVehicles[i].vehicle.scaleY = (this.vehicleHeight / 178) * this.scale;
+      var bounds = this.otherVehicles[i].vehicle.getTransformedBounds();
+      
+      if(yrot < -551 && xrot < 412 && xrot > -355){             
+        this.otherVehicles[i].indicator.x = bounds.x - 250 + bounds.width/2;
+        this.otherVehicles[i].indicator.y = -551 - 300;
+
+        var diff = -(yrot + 551);
+        if(diff < 100000*this.scale){
+          this.otherVehicles[i].indicator.alpha = 1 - diff/(100000*this.scale);  
+        }else{
+          this.otherVehicles[i].indicator.alpha = 0;
+        }
+
+      }else if(yrot >=-551 && yrot < -451 && xrot <412 && xrot > -355){
+        this.otherVehicles[i].indicator.x = bounds.x - 250 + bounds.width/2;
+        this.otherVehicles[i].indicator.y = -551 -300;
+
+        var diff = 551 + yrot;
+        this.otherVehicles[i].vehicle.alpha = diff*0.01;
+        this.otherVehicles[i].indicator.alpha = 1 - diff*0.01;
+      }else if(yrot > 400 && xrot < 412 && xrot > -355){
+        this.otherVehicles[i].indicator.x = bounds.x - 250 + bounds.width/2;
+        this.otherVehicles[i].indicator.y = 100;
+
+        var diff = yrot - 400;
+        if(diff < 100000*this.scale){
+          this.otherVehicles[i].indicator.alpha = 1 - diff/(100000*this.scale);  
+        }else{
+          this.otherVehicles[i].indicator.alpha = 100;
+        }
+      }else if(yrot < 400 && yrot > 300  && xrot <412 && xrot >-355){
+        this.otherVehicles[i].indicator.x = bounds.x - 250 + bounds.width/2;
+        this.otherVehicles[i].indicator.y = 100;
+
+        var diff = 400 - yrot;
+        this.otherVehicles[i].vehicle.alpha = diff*0.01;
+        this.otherVehicles[i].indicator.alpha = 1 - diff*0.01;
+        console.log(diff*0.01);
+
+      }else if(xrot > 412){
+        this.otherVehicles[i].indicator.x = 412 - 300;
+        this.otherVehicles[i].indicator.y = bounds.y - 250 + bounds.height/2;
+
+        var diff = xrot -412;
+        if(diff < 100000*this.scale){
+          this.otherVehicles[i].indicator.alpha = 1 - diff/(100000*this.scale);
+        }else{
+          this.otherVehicles[i].indicator.alpha = 0;
+        }
+      }else if(xrot < 412 && xrot > 312){
+        this.otherVehicles[i].indicator.x = bounds.x - 250 + bounds.width/2;
+        this.otherVehicles[i].indicator.y = 412 - 300;
+
+        var diff = 412 - xrot;
+        this.otherVehicles[i].vehicle.alpha = diff*0.01;
+        this.otherVehicles[i].indicator.alpha = 1 - diff*0.01;
+
+      }else if(x < -355){
+        this.otherVehicles[i].indicator.x = -355- 300;
+        this.otherVehicles[i].indicator.y = bounds.y - 250 + bounds.height/2;
+
+        var diff = -(xrot + 355);
+        if(diff < 100000*this.scale){
+          this.otherVehicles[i].indicator.alpha = 1 - diff/(100000*this.scale);
+          console.log(this.otherVehicles[i].indicator.alpha);  
+
+        }else{
+          this.otherVehicles[i].indicator.alpha = 0;
+        }
+
+      }else if(xrot > -355 && xrot <-255){
+        this.otherVehicles[i].indicator.x = bounds.x - 250 + bounds.width/2;
+        this.otherVehicles[i].indicator.y = -355- 300;
+
+        var diff = 355 + xrot;
+        this.otherVehicles[i].vehicle.alpha = diff*0.01;
+        this.otherVehicles[i].indicator.alpha = 1 - diff*0.01;
+
+      }else{
+
+        this.otherVehicles[i].indicator.alpha = 0;
+        this.otherVehicles[i].vehicle.alpha = 1;
+      }
     }
 
-    this.stage.rotation = -ego.heading;
+   // this.stage.rotation = -ego.heading;
     this.stage.update()
   }
+
+
 
   updateScale(zoom) {
     if (zoom == 1 && this.scale < 0.04) {
@@ -91,9 +195,15 @@ class MainScreen extends Component {
 
     if (this.otherVehicles.length == 0 && ego && vehicles) {
       for (var i = 0; i < vehicles.length; i++) {
+        var obj = {};
         var vehicle = new createjs.Bitmap(images.otherTransport);
-        this.otherVehicles.push(vehicle);
+        obj.vehicle = vehicle;
+        var indicator = new createjs.Bitmap(images.indicator);
+        indicator.alpha = 0;
+        obj.indicator = indicator;
+        this.otherVehicles.push(obj);
         this.stage.addChild(vehicle);
+        this.stage.addChild(indicator);
       }
     }
 

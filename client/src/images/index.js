@@ -5,5 +5,6 @@ export default {
     road: require('./road.png'),
     miniEgo: require('./miniEgo.png'),
     miniOther: require('./miniOther.png'),
-    miniRoad: require('./miniRoad.png')
+    miniRoad: require('./miniRoad.png'),
+    indicator: require('./indicator.png')
 }

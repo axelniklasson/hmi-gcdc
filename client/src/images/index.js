@@ -7,5 +7,7 @@ export default {
     miniOther: require('./miniOther.png'),
     miniRoad: require('./miniRoad.png'),
     blinker: require('./blinker.png'),
-    brake: require('./brake.png')
+    brake: require('./brake.png'),
+    zoomIn: require('./zoom-in.png'),
+    zoomOut: require('./zoom-out.png')
 }

@@ -6,7 +6,7 @@ import MiniMap from './MiniMap'
 
 const Top = ({ ego, vehicles }) => (
   <div styleName="container">
-    <MiniMap ego={ ego } vehicles={ vehicles } />
+    {/*<MiniMap ego={ ego } vehicles={ vehicles } />*/}
     <MainScreen ego={ ego } vehicles={ vehicles } />
   </div>
 )

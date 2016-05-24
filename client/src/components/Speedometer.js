@@ -93,9 +93,11 @@ class Speedometer extends Component {
       var speedText = new createjs.Text(Math.round(speed), "40px sans-serif", "white");
       var speedX;
       if(speed > 99){
-          speedX = -25;
+          speedX = -40;
+      }else if(speed > 9){
+          speedX = -27;
       }else{
-          speedX = -15;
+          speedX = -15
       }
       speedText.x = speedX;
       speedText.y = 0;

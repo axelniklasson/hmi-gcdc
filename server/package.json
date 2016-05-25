@@ -8,11 +8,7 @@
     "node": ">=0.10"
   },
   "scripts": {
-    "intersection": "nodemon ./intersection.js",
-    "platooning": "nodemon ./platooning.js",
-    "emergency": "nodemon ./emergency.js",
-    "vehicle": "nodemon ./vehicle.js",
-    "demo": "nodemon ./demo.js"
+    "start": "nodemon ./vehicle.js"
   },
   "dependencies": {
     "binary": "^0.3.0",

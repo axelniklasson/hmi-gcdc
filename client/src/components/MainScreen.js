@@ -104,28 +104,41 @@ class MainScreen extends Component {
     this.ego.scaleX = (this.vehicleWidth / 100) * this.scale;
     this.ego.scaleY = (this.vehicleHeight / 178) * this.scale;
 
+
     if (!this.road) {
       this.road = new createjs.Bitmap(images.road);
     }
     this.road.x = -(this.roadWidth*this.scale)/2 + (this.vehicleWidth * this.scale)/  2;
     this.road.scaleX = (this.roadWidth/120) * this.scale;
 
-    //var angle = 90;
-    //var x = 412;
-    //var y = 300;
-    //var xrot = Math.cos(-angle*Math.PI/180)*x - Math.sin(-angle*Math.PI/180)*y;
-    //var yrot = Math.sin(-angle*Math.PI/180)*x + Math.cos(-angle*Math.PI/180)*y;
-    //console.log(xrot + ", " + yrot);
-    //var circle = new createjs.Shape();
-    //circle.graphics.beginFill("white");
-    //circle.graphics.drawCircle(xrot,yrot,5);
-    //this.stage.addChild(circle);
+    if (!this.leftLane) {
+      this.leftLane = new createjs.Bitmap(images.road);
+    }
+    this.leftLane.x = -(this.roadWidth*this.scale)/2 + (this.vehicleWidth * this.scale)/  2;
 
+    if (!this.rightLane) {
+      this.rightLane = new createjs.Bitmap(images.road);
+    }
+    this.rightLane.x = -(this.roadWidth*this.scale)/2 + (this.vehicleWidth * this.scale)/  2;
+    
+
+    this.leftLane.scaleX = (this.roadWidth/120) * this.scale;
+    this.rightLane.scaleX = (this.roadWidth/120) * this.scale;
+    if (this.road) {
+      this.stage.removeChild(this.road);
+    }
+    if (this.leftLane) {
+      this.stage.removeChild(this.leftLane);
+    }
+    if (this.rightLane) {
+      this.stage.removeChild(this.rightLane);
+    }
     this.stage.addChild(this.road);
+    this.stage.addChild(this.leftLane);
+    this.stage.addChild(this.rightLane);
     this.stage.addChild(this.ego);
 
     this.road.image.onload = () => this.stage.update()
-
   }
 
   init() {
@@ -138,10 +151,25 @@ class MainScreen extends Component {
 
   // Create the drawing logic
   draw(ego, vehicles) {
-    for (var i = 0; i < vehicles.length; i++) {
-     // this.ego.rotation = ego.heading;
-     // this.road.rotation = ego.heading;
+    ego.distanceToLaneC = -ego.distanceToLaneC;
+    this.road.x = -(this.roadWidth*this.scale)/2 + (this.vehicleWidth * this.scale)/2 + (ego.distanceToLaneC * this.scale);
 
+    // Fade in lane marking
+    if (ego.distanceToLaneC < -500) {
+      this.rightLane.x = this.road.x + this.roadWidth * this.scale;
+      this.rightLane.alpha = (Math.abs(ego.distanceToLaneC) - 500) * 0.001;
+      this.leftLane.alpha = 0;
+    } else if (ego.distanceToLaneC > 500) {
+      this.leftLane.x = this.road.x - this.roadWidth * this.scale;
+      this.leftLane.alpha = (Math.abs(ego.distanceToLaneC) - 500) * 0.001;
+      this.rightLane.alpha = 0;
+    } else {
+      this.rightLane.alpha = 0;
+      this.leftLane.alpha = 0;
+    }
+
+
+    for (var i = 0; i < vehicles.length; i++) {
       var vehicle = vehicles[i];
 
       var x = vehicle.x * this.scale;
@@ -240,11 +268,8 @@ class MainScreen extends Component {
       }
     }
 
-   // this.stage.rotation = -ego.heading;
     this.stage.update()
   }
-
-
 
   updateScale(zoom) {
     if (zoom == 1 && this.scale < 0.04) {
@@ -253,12 +278,16 @@ class MainScreen extends Component {
       this.scale -= 0.0025;
     }
     this.drawEgo();
+    // this.stage.removeChild(this.leftLane);
+    // this.stage.removeChild(this.rightLane);
+    // this.stage.removeChild(this.road);
     this.stage.update();
   }
 
   render() {
     // Extract props
     const { ego, vehicles } = this.props;
+
     if (ego.flags) {
       if (ego.flags[0] == 1) {
         this.braking = true;

@@ -5,8 +5,8 @@ import styles from '../styles/ZoomButtons'
 
 const ZoomButtons = ({ updateScale }) => (
   <div styleName="container">
-    <button onClick={ () => updateScale(1) }><img styleName="button" src={images.zoomIn} /></button>
-    <button onClick={ () => updateScale(0) }><img styleName="button" src={images.zoomOut} /></button>
+    <img src={images.zoomIn} onClick={ () => updateScale(1) } />
+    <img src={images.zoomOut} onClick={ () => updateScale(0) } />
   </div>
 )
 

@@ -111,22 +111,34 @@ class MainScreen extends Component {
     this.road.x = -(this.roadWidth*this.scale)/2 + (this.vehicleWidth * this.scale)/  2;
     this.road.scaleX = (this.roadWidth/120) * this.scale;
 
-    this.leftLane = new createjs.Bitmap(images.road);
+    if (!this.leftLane) {
+      this.leftLane = new createjs.Bitmap(images.road);
+    }
     this.leftLane.x = -(this.roadWidth*this.scale)/2 + (this.vehicleWidth * this.scale)/  2;
-    this.rightLane = new createjs.Bitmap(images.road);
+
+    if (!this.rightLane) {
+      this.rightLane = new createjs.Bitmap(images.road);
+    }
     this.rightLane.x = -(this.roadWidth*this.scale)/2 + (this.vehicleWidth * this.scale)/  2;
     
 
     this.leftLane.scaleX = (this.roadWidth/120) * this.scale;
     this.rightLane.scaleX = (this.roadWidth/120) * this.scale;
-
+    if (this.road) {
+      this.stage.removeChild(this.road);
+    }
+    if (this.leftLane) {
+      this.stage.removeChild(this.leftLane);
+    }
+    if (this.rightLane) {
+      this.stage.removeChild(this.rightLane);
+    }
     this.stage.addChild(this.road);
     this.stage.addChild(this.leftLane);
     this.stage.addChild(this.rightLane);
     this.stage.addChild(this.ego);
 
     this.road.image.onload = () => this.stage.update()
-
   }
 
   init() {
@@ -259,8 +271,6 @@ class MainScreen extends Component {
     this.stage.update()
   }
 
-
-
   updateScale(zoom) {
     if (zoom == 1 && this.scale < 0.04) {
       this.scale += 0.0025;
@@ -268,6 +278,9 @@ class MainScreen extends Component {
       this.scale -= 0.0025;
     }
     this.drawEgo();
+    // this.stage.removeChild(this.leftLane);
+    // this.stage.removeChild(this.rightLane);
+    // this.stage.removeChild(this.road);
     this.stage.update();
   }
 

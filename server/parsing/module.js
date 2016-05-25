@@ -35,7 +35,6 @@ module.exports = {
     data.ego = ego;
 
     // Extract other vehicles data
-    console.log(data);
     data.vehicles = [];
     var vehicleLabels = labels.getVehicleLabels();
     var vehiclesData = packet.slice(52);

@@ -25,7 +25,7 @@ class App extends Component {
         ego: data.ego,
         egoFlags: data.ego.flags,
         speed: data.ego.speed * 3.6,
-        acceleration: data.ego.longAcc,
+        acceleration: data.ego.acceleration,
         vehicles: data.vehicles
       })
     })

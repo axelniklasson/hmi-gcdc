@@ -8,7 +8,7 @@
     "node": ">=0.10"
   },
   "scripts": {
-    "start": "node ./vehicle.js"
+    "start": "nodemon ./vehicle.js"
   },
   "dependencies": {
     "binary": "^0.3.0",

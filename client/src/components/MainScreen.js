@@ -259,6 +259,7 @@ class MainScreen extends Component {
   render() {
     // Extract props
     const { ego, vehicles } = this.props;
+
     if (ego.flags) {
       if (ego.flags[0] == 1) {
         this.braking = true;

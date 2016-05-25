@@ -112,7 +112,10 @@ class MainScreen extends Component {
     this.road.scaleX = (this.roadWidth/120) * this.scale;
 
     this.leftLane = new createjs.Bitmap(images.road);
+    this.leftLane.x = -(this.roadWidth*this.scale)/2 + (this.vehicleWidth * this.scale)/  2;
     this.rightLane = new createjs.Bitmap(images.road);
+    this.rightLane.x = -(this.roadWidth*this.scale)/2 + (this.vehicleWidth * this.scale)/  2;
+    
 
     this.leftLane.scaleX = (this.roadWidth/120) * this.scale;
     this.rightLane.scaleX = (this.roadWidth/120) * this.scale;
@@ -153,7 +156,7 @@ class MainScreen extends Component {
       this.leftLane.alpha = 0;
     }
 
-    
+
     for (var i = 0; i < vehicles.length; i++) {
       var vehicle = vehicles[i];
 

@@ -225,7 +225,7 @@ drawBlinkers() {
       this.otherVehicles[i].vehicle.scaleY = (this.vehicleHeight / 205) * this.scale;
       var bounds = this.otherVehicles[i].vehicle.getTransformedBounds();
       
-      if(yrot < -551 && xrot < 412 && xrot > -355){             
+      if(yrot < -551 && xrot < 412 && xrot > -355){  
         this.otherVehicles[i].indicator.x = bounds.x - 250 + bounds.width/2;
         this.otherVehicles[i].indicator.y = -551 - 300;
 
@@ -253,7 +253,7 @@ drawBlinkers() {
         }else{
           this.otherVehicles[i].indicator.alpha = 100;
         }
-      }else if(yrot < 400 && yrot > 300  && xrot <412 && xrot >-355){
+      }else if(yrot < 400 && yrot > 300  && xrot <412 && xrot >-355){    
         this.otherVehicles[i].indicator.x = bounds.x - 250 + bounds.width/2;
         this.otherVehicles[i].indicator.y = 100;
 
@@ -272,8 +272,8 @@ drawBlinkers() {
           this.otherVehicles[i].indicator.alpha = 0;
         }
       }else if(xrot < 412 && xrot > 312){
-        this.otherVehicles[i].indicator.x = bounds.x - 250 + bounds.width/2;
-        this.otherVehicles[i].indicator.y = 412 - 300;
+       this.otherVehicles[i].indicator.x = 412 - 300;
+       this.otherVehicles[i].indicator.y = bounds.y - 250 + bounds.height/2;
 
         var diff = 412 - xrot;
         this.otherVehicles[i].vehicle.alpha = diff*0.01;
@@ -292,8 +292,8 @@ drawBlinkers() {
         }
 
       }else if(xrot > -355 && xrot <-255){
-        this.otherVehicles[i].indicator.x = bounds.x - 250 + bounds.width/2;
-        this.otherVehicles[i].indicator.y = -355- 300;
+        this.otherVehicles[i].indicator.x = -355- 300;
+        this.otherVehicles[i].indicator.y = bounds.y - 250 + bounds.height/2;
 
         var diff = 355 + xrot;
         this.otherVehicles[i].vehicle.alpha = diff*0.01;

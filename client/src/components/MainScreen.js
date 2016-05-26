@@ -262,7 +262,7 @@ drawBlinkers() {
         this.otherVehicles[i].indicator.alpha = 1 - diff*0.01;
 
       }else if(xrot > 412){
-        this.otherVehicles[i].indicator.x = 412 - 300;
+        this.otherVehicles[i].indicator.x = 412 - 200;
         this.otherVehicles[i].indicator.y = bounds.y - 250 + bounds.height/2;
 
         var diff = xrot -412;
@@ -272,7 +272,7 @@ drawBlinkers() {
           this.otherVehicles[i].indicator.alpha = 0;
         }
       }else if(xrot < 412 && xrot > 312){
-       this.otherVehicles[i].indicator.x = 412 - 300;
+       this.otherVehicles[i].indicator.x = 412 - 200;
        this.otherVehicles[i].indicator.y = bounds.y - 250 + bounds.height/2;
 
         var diff = 412 - xrot;

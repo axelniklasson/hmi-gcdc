@@ -25,22 +25,23 @@
 }
 
 .icon {
-  height: 45%;
-  width: 20%;
-  padding-top: 30px;
+  height: 50px;
+  width: 100px;
+  margin-top: 30px;
   display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: flex-end;
-  font-size: 60px;
+  justify-content: center;
+  align-items: center;
+}
+
+.icon img {
+  height: 100%;
+  width: auto;
 }
 
 .text {
-  height: 55%;
-  width: 80%;
-  margin-top: 50px;
-  padding: 30px 50px 20px;
+  width: 270px;
+  margin-top: 20px;
   text-align: center;
-  font-size: 30px;
-  font-weight: 100;
+  font-size: 32px;
+  font-weight: 400;
 }

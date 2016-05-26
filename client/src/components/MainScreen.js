@@ -97,12 +97,12 @@ class MainScreen extends Component {
     this.stage.y = this.canvas.height / 2 + 40;
 
     if (!this.ego) {
-      this.ego = new createjs.Bitmap(images.transport);
+      this.ego = new createjs.Bitmap(images.ego);
       this.ego.x = 0;
       this.ego.y = 0;
     }
     this.ego.scaleX = (this.vehicleWidth / 100) * this.scale;
-    this.ego.scaleY = (this.vehicleHeight / 178) * this.scale;
+    this.ego.scaleY = (this.vehicleHeight / 209) * this.scale;
 
 
     if (!this.road) {

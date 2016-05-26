@@ -223,6 +223,8 @@ drawBlinkers() {
       this.otherVehicles[i].vehicle.rotation = vehicle.heading-ego.heading;
       this.otherVehicles[i].vehicle.scaleX = (this.vehicleWidth / 100) * this.scale;
       this.otherVehicles[i].vehicle.scaleY = (this.vehicleHeight / 205) * this.scale;
+      this.otherVehicles[i].indicator.scaleX = this.scale/0.0275;
+      this.otherVehicles[i].indicator.scaleY = this.scale/0.0275;
       var bounds = this.otherVehicles[i].vehicle.getTransformedBounds();
       
       if(yrot < -551 && xrot < 412 && xrot > -355){  

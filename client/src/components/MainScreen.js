@@ -182,8 +182,8 @@ drawBlinkers() {
   }
 
   init() {
-    this.vehicleHeight = 4635;
-    this.vehicleWidth = 2097;
+    this.vehicleHeight = 4628;
+    this.vehicleWidth = 1865;
     this.roadWidth = 4000;
     this.scale = 0.0275;
     this.otherVehicles = [];
@@ -221,8 +221,8 @@ drawBlinkers() {
       this.otherVehicles[i].vehicle.x = xrot;
       this.otherVehicles[i].vehicle.y = yrot;
       this.otherVehicles[i].vehicle.rotation = vehicle.heading-ego.heading;
-      this.otherVehicles[i].vehicle.scaleX = (this.vehicleWidth / 100) * this.scale;
-      this.otherVehicles[i].vehicle.scaleY = (this.vehicleHeight / 205) * this.scale;
+      this.otherVehicles[i].vehicle.scaleX = (vehicle.width / 100) * this.scale;
+      this.otherVehicles[i].vehicle.scaleY = (vechicle.length / 205) * this.scale;
       this.otherVehicles[i].indicator.scaleX = this.scale/0.0275;
       this.otherVehicles[i].indicator.scaleY = this.scale/0.0275;
       var bounds = this.otherVehicles[i].vehicle.getTransformedBounds();

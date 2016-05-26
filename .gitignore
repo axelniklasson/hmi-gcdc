@@ -2,3 +2,6 @@
 client/node_modules
 server/node_modules
 npm-debug.log
+.idea
+server/simulation
+client/dist

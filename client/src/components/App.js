@@ -5,28 +5,28 @@ import styles from '../styles/App'
 import Top from './Top'
 import Bottom from './Bottom'
 
-const socket = require('socket.io-client')('localhost:3000');
+const socket = require('socket.io-client')('http://localhost:3000');
 
 class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      ego: 0,
+      egoFlags: 0,
       speed: 0,
       acceleration: 0,
-      lat: 0,
-      northing: 0,
-      easting: 0
+      speed: 0
     }
   }
 
   componentDidMount() {
-    socket.on('data', (msg) => {
+    socket.on('vehicleData', (data) => {
       this.setState({
-        speed: msg[7]['value'],
-        acceleration: msg[8]['value'],
-        lat: msg[12]['value'],
-        northing: msg[14]['value'],
-        easting: msg[15]['value']
+        ego: data.ego,
+        egoFlags: data.ego.flags,
+        speed: data.ego.speed * 3.6,
+        acceleration: data.ego.acceleration,
+        vehicles: data.vehicles
       })
     })
   }
@@ -35,13 +35,10 @@ class App extends Component {
     return (
       <div styleName="container">
         <div styleName="top">
-          <Top 
-            speed={this.state.speed}
-            northing={this.state.northing}
-            easting={this.state.easting}/>
+          <Top ego={this.state.ego} vehicles={this.state.vehicles} />
         </div>
         <div styleName="bottom">
-          <Bottom speed={this.state.speed} acceleration={this.state.acceleration} />
+          <Bottom speed={this.state.speed} acceleration={this.state.acceleration} egoFlags={this.state.egoFlags} />
         </div>
       </div>
     )

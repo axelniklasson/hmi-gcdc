@@ -1,31 +1,131 @@
 import React, { Component } from 'react'
-import CSSModules from 'react-css-modules'
-import styles from '../styles/Speed'
+import { findDOMNode } from 'react-dom'
+import createjs from 'createjs-collection'
 
 class Speedometer extends Component {
   constructor(props) {
     super(props)
+  }
 
+  // Prepare stage for drawing
+  componentDidMount() {
+    let canvas = findDOMNode(this.refs.canvas)
+    this.stage = new createjs.Stage(canvas)
+    this.stage.x = 140
+    this.stage.y = 140
+
+    this.draw(0)
+  }
+
+  // Create the drawing logic
+  draw(speed) {
+    var outerRadius = 130;
+    var smallLineRadius = 120;
+    var bigLineRadius = 110;
+    var miniLineRadius = 120;
+    var textRadius = 85;
+    var innerRadius = 70;
+    var increase = 1;
+
+    this.stage.removeAllChildren();
+
+    var j = 180;
+    for(var i = 0; i>=-Math.PI; i = i- (20*Math.PI/180)){
+        let pil = new createjs.Shape();
+        var fromX = Math.cos(i-0.8*Math.PI/180) * outerRadius;
+        var fromY = Math.sin(i-0.8*Math.PI/180) * outerRadius;
+        var fromX2 = Math.cos(i+0.8*Math.PI/180) * outerRadius;
+        var fromY2 = Math.sin(i+0.8*Math.PI/180) * outerRadius;
+        var toX  = Math.cos(i) * bigLineRadius;
+        var toY = Math.sin(i) * bigLineRadius;
+        pil.graphics.beginFill("white");
+        pil.graphics.moveTo(fromX, fromY);
+        pil.graphics.lineTo(fromX2, fromY2);
+        pil.graphics.lineTo(toX,toY);
+        pil.graphics.lineTo(fromX, fromY);
+        this.stage.addChild(pil);
+
+        if(j%40 == 0 && j<=120) {
+            var text = new createjs.Text(j, "20px sans-serif", "white");
+            text.x = (Math.cos(i) * textRadius)-15;
+            text.y = Math.sin(i) * textRadius;
+            text.textBaseline = "alphabetic";
+            this.stage.addChild(text);
+        }
+        j= j-20;
+    }
+
+    for(var i = 0; i>=-Math.PI; i = i- (5*Math.PI/180)){
+        let miniPil = new createjs.Shape();
+        var fromX = Math.cos(i-0.2*Math.PI/180) * outerRadius;
+        var fromY = Math.sin(i-0.2*Math.PI/180) * outerRadius;
+        var fromX2 = Math.cos(i+0.2*Math.PI/180) * outerRadius;
+        var fromY2 = Math.sin(i+0.2*Math.PI/180) * outerRadius;
+        var toX  = Math.cos(i) * miniLineRadius;
+        var toY = Math.sin(i) * miniLineRadius;
+        miniPil.graphics.beginFill("white");
+        miniPil.graphics.moveTo(fromX, fromY);
+        miniPil.graphics.lineTo(fromX2, fromY2);
+        miniPil.graphics.lineTo(toX,toY);
+        miniPil.graphics.lineTo(fromX, fromY);
+        this.stage.addChild(miniPil);
+    }
+
+      let innerLine = new createjs.Shape();
+      innerLine.graphics.beginStroke("white");
+      innerLine.graphics.arc(0,0,innerRadius,0,Math.PI, true);
+      this.stage.addChild(innerLine);
+
+      var FromX = (Math.cos((speed-180)*Math.PI/180)*outerRadius);
+      var FromY = (Math.sin((speed-180)*Math.PI/180)*outerRadius);
+      var ToX = (Math.cos((speed-178)*Math.PI/180)*innerRadius);
+      var ToY = (Math.sin((speed-178)*Math.PI/180)*innerRadius);
+      var ToX2 = (Math.cos((speed-182)*Math.PI/180)*innerRadius);
+      var ToY2 = (Math.sin((speed-182)*Math.PI/180)*innerRadius);
+      let nail = new createjs.Shape();
+      nail.graphics.beginFill("red");
+      nail.graphics.moveTo(ToX, ToY);
+      nail.graphics.lineTo(ToX2, ToY2);
+      nail.graphics.lineTo(FromX, FromY);
+      nail.graphics.lineTo(ToX,ToY);
+      this.stage.addChild(nail);
+
+      var speedText = new createjs.Text(Math.round(speed), "40px sans-serif", "white");
+      var speedX;
+      if(speed > 99){
+          speedX = -40;
+      }else if(speed > 9){
+          speedX = -27;
+      }else{
+          speedX = -15
+      }
+      speedText.x = speedX;
+      speedText.y = 0;
+      speedText.textBaseline = "alphabetic";
+      this.stage.addChild(speedText);
+
+    this.stage.update()
   }
 
   render() {
-    var { speed } = this.props;
-    var ctx;
-    var outerRadius = 70;
-    var smallLineRadius = 65;
-    var bigLineRadius = 60;
-    var textRadius = 50;
-    var innerRadius = 40;
-    var increase = 1;
+    // Extract props
+    const { speed } = this.props
 
+    // Draw on props update
+    if (speed) {
+      this.draw(speed)
+    }
 
     return (
-      <div styleName="container">
-
+      <div>
+        <canvas 
+          className="container"
+          ref="canvas"
+          width={275}
+          height={175} />
       </div>
-
     )
   }
 }
 
-export default CSSModules(Speedometer, styles)
+export default Speedometer

@@ -4,17 +4,17 @@ import styles from '../styles/Dashboard'
 
 import Speed from './Speed'
 import InfoActions from './InfoActions'
-import Acceleration from './Acceleration'
+import Accelerometer from './Accelerometer'
 
 class Dashboard extends Component {
     render() {
-        var { speed, acceleration } = this.props;
+        var { speed, acceleration, egoFlags } = this.props;
 
         return (
             <div styleName="container">
                 <Speed speed={speed} />
-                <InfoActions />
-                <Acceleration acceleration={acceleration} />
+                <InfoActions egoFlags={egoFlags} />
+                <Accelerometer acceleration={acceleration} egoFlags={egoFlags} />
             </div>
         )
     }

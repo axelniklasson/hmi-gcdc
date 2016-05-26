@@ -12,10 +12,10 @@ class InfoBox extends Component {
     const { flags } = this.props;
 
     let message = "";
-    let icon = {};
+    var icon = null;
 
     let testMessage = "Intersection. Incoming vehicle from the Right";
-    let testIcon = images.intersectionRight;
+    var testIcon = images.intersectionRight;
 
     switch(flags) {
       case flags[5] === 1: // Construction site discovered
@@ -38,12 +38,12 @@ class InfoBox extends Component {
         icon = images.emergency;
       default:
         message = "";
+        icon = null;
     }
     
     return (
-      <div styleName="container"> 
-        <img src={testIcon} />
-        <div styleName="text">{testMessage}</div>
+      <div styleName="container">
+        <div styleName="text">{message}</div>
       </div>
     )
   }

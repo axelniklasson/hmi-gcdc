@@ -12,10 +12,6 @@ class InfoActions extends Component {
     const { flags } = this.props;
 
     let message = "";
-    let icon = {};
-
-    let testMessage = "Yielding";
-    let testIcon = images.intersectionRight;
 
     switch(flags) {
       case flags[6] === 1: // Request to merge
@@ -40,8 +36,7 @@ class InfoActions extends Component {
       <div styleName="container">
         <div styleName="circle">
           <div styleName="inner-box">
-            <div styleName="icon"><img src={testIcon} /></div>
-            <div styleName="text">{testMessage}</div>
+            <div styleName="text">{message}</div>
           </div>
         </div>
       </div>

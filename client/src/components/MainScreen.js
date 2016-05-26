@@ -44,12 +44,12 @@ class MainScreen extends Component {
   drawBrakeLights() {
     if (this.braking) {
       this.brakeLeft.x = (this.scale/0.0275) * -15;
-      this.brakeLeft.y = this.vehicleHeight * this.scale - (this.scale/0.0275) * 10; // - this.brakeLeft.getBounds().height / 2;
+      this.brakeLeft.y = this.vehicleHeight * this.scale - (this.scale/0.0275) * 25; // - this.brakeLeft.getBounds().height / 2;
       this.brakeLeft.alpha = 1;
       this.brakeLeft.scaleX = this.scale/0.0275;
       this.brakeLeft.scaleY = this.scale/0.0275;
       this.brakeRight.x = this.vehicleWidth * this.scale - (this.scale/0.0275) * 35 ;
-      this.brakeRight.y = this.vehicleHeight * this.scale - (this.scale/0.0275) * 10; // - this.brakeRight.getBounds().height / 2;
+      this.brakeRight.y = this.vehicleHeight * this.scale - (this.scale/0.0275) * 25; // - this.brakeRight.getBounds().height / 2;
       this.brakeRight.scaleX = (this.scale/0.0275);
       this.brakeRight.scaleY = (this.scale/0.0275);
       this.brakeRight.alpha = 1;
@@ -72,7 +72,7 @@ drawBlinkers() {
            that.blinkerTopRight.scaleX = (that.scale/0.0275);
            that.blinkerTopRight.scaleY = (that.scale/0.0275);
            that.blinkerBottomRight.x = that.vehicleWidth * that.scale - (that.scale/0.0275)*35;
-           that.blinkerBottomRight.y = that.vehicleHeight * that.scale - (that.scale/0.0275)*10;// - this.blinkerBottomRight.getBounds().height / 2;
+           that.blinkerBottomRight.y = that.vehicleHeight * that.scale - (that.scale/0.0275) * 25;// - this.blinkerBottomRight.getBounds().height / 2;
            that.blinkerBottomRight.scaleX = (that.scale/0.0275);
            that.blinkerBottomRight.scaleY = (that.scale/0.0275);
            that.blinkerBottomRight.alpha = 1;
@@ -102,7 +102,7 @@ drawBlinkers() {
            that.blinkerTopLeft.scaleX = (that.scale/0.0275);
            that.blinkerTopLeft.scaleY = (that.scale/0.0275);
            that.blinkerBottomLeft.x =  -(that.scale/0.0275)*15;
-           that.blinkerBottomLeft.y = that.vehicleHeight * that.scale - (that.scale/0.0275)*10;// - this.blinkerBottomRight.getBounds().height / 2;
+           that.blinkerBottomLeft.y = that.vehicleHeight * that.scale - (that.scale/0.0275)*25;// - this.blinkerBottomRight.getBounds().height / 2;
            that.blinkerBottomLeft.scaleY = (that.scale/0.0275);
            that.blinkerBottomLeft.scaleX = (that.scale/0.0275);
            that.blinkerTopLeft.alpha = 1;

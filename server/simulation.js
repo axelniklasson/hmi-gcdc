@@ -12,10 +12,10 @@ var startX = 1000;
 var startY = 2000;
 var data = {};
 var ego = {
-    flags: [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+    flags: [0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
     ID: 170,
     speed: 6.19,
-    acceleration: -0.033,
+    acceleration: -1,
     heading: 3.127,
     x: 682276.32,
     y: 5705847.19,
@@ -33,8 +33,8 @@ var vehicles = [
         heading: 1.583,
         x: startX - 1000,
         y: startY,
-        width: 1.7,
-        length: 4.5
+        width: 1700,
+        length: 4500
     },
     {
         flags: [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
@@ -44,8 +44,8 @@ var vehicles = [
         heading: 90,
         x: startX,
         y: startY + 1000,
-        width: 1.7,
-        length: 4.5
+        width: 1700,
+        length: 4500
     },
     {
         flags: [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
@@ -55,8 +55,8 @@ var vehicles = [
         heading: -90,
         x: startX,
         y: startY,
-        width: 1.7,
-        length: 4.5
+        width: 1700,
+        length: 4500
     }
 ];
 

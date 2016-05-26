@@ -12,5 +12,9 @@ export default {
     blinker: require('./blinker.png'),
     brake: require('./brake.png'),
     zoomIn: require('./zoom-in.png'),
-    zoomOut: require('./zoom-out.png')
+    zoomOut: require('./zoom-out.png'),
+    construction: require('./icon-construction.png'),
+    intersectionRight: require('./icon-intersection-right.png'),
+    intersectionLeft: require('./icon-intersection-left.png'),
+    emergency: require('./icon-emergency.png')
 }

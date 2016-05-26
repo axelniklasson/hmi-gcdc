@@ -8,13 +8,13 @@ import Accelerometer from './Accelerometer'
 
 class Dashboard extends Component {
     render() {
-        var { speed, acceleration, egoFlags } = this.props;
+        var { speed, acceleration, flags } = this.props;
 
         return (
             <div styleName="container">
                 <Speed speed={speed} />
-                <InfoActions egoFlags={egoFlags} />
-                <Accelerometer acceleration={acceleration} egoFlags={egoFlags} />
+                <InfoActions flags={flags} />
+                <Accelerometer acceleration={acceleration} flags={flags} />
             </div>
         )
     }

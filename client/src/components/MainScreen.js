@@ -102,7 +102,7 @@ class MainScreen extends Component {
       this.ego.y = 0;
     }
     this.ego.scaleX = (this.vehicleWidth / 100) * this.scale;
-    this.ego.scaleY = (this.vehicleHeight / 209) * this.scale;
+    this.ego.scaleY = (this.vehicleHeight / 205) * this.scale;
 
 
     if (!this.road) {
@@ -182,7 +182,7 @@ class MainScreen extends Component {
       this.otherVehicles[i].vehicle.y = yrot;
       this.otherVehicles[i].vehicle.rotation = vehicle.heading-ego.heading;
       this.otherVehicles[i].vehicle.scaleX = (this.vehicleWidth / 100) * this.scale;
-      this.otherVehicles[i].vehicle.scaleY = (this.vehicleHeight / 178) * this.scale;
+      this.otherVehicles[i].vehicle.scaleY = (this.vehicleHeight / 205) * this.scale;
       var bounds = this.otherVehicles[i].vehicle.getTransformedBounds();
       
       if(yrot < -551 && xrot < 412 && xrot > -355){             
@@ -315,7 +315,7 @@ class MainScreen extends Component {
     if (this.otherVehicles.length == 0 && ego && vehicles) {
       for (var i = 0; i < vehicles.length; i++) {
         var obj = {};
-        var vehicle = new createjs.Bitmap(images.otherTransport);
+        var vehicle = new createjs.Bitmap(images.vehicle);
         obj.vehicle = vehicle;
         var indicator = new createjs.Bitmap(images.indicator);
         indicator.alpha = 0;

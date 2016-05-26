@@ -287,7 +287,7 @@ drawBlinkers() {
 
         var diff = -(xrot + 355);
         if(diff < 100000*this.scale){
-          this.otherVehicles[i].indicator.alpha = 1 - diff/(100000*this.scale);
+        this.otherVehicles[i].indicator.alpha = 1 - diff/(100000*this.scale); 
 
         }else{
           this.otherVehicles[i].indicator.alpha = 0;
@@ -352,7 +352,7 @@ drawBlinkers() {
     if (this.otherVehicles.length == 0 && ego && vehicles) {
       for (var i = 0; i < vehicles.length; i++) {
         var obj = {};
-        var vehicle = new createjs.Bitmap(images.otherTransport);
+        var vehicle = new createjs.Bitmap(images.vehicle);
         obj.vehicle = vehicle;
         var indicator = new createjs.Bitmap(images.indicator);
         indicator.alpha = 0;

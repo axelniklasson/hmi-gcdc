@@ -16,5 +16,6 @@ export default {
     construction: require('./icon-construction.png'),
     intersectionRight: require('./icon-intersection-right.png'),
     intersectionLeft: require('./icon-intersection-left.png'),
-    emergency: require('./icon-emergency.png')
+    emergency: require('./icon-emergency.png'),
+    empty: require('./icon-empty.png')
 }

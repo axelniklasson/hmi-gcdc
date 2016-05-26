@@ -11,25 +11,20 @@ class InfoActions extends Component {
   render() {
     const { flags } = this.props;
 
-    let message = "";
+    var message = "";
 
-    switch(flags) {
-      case flags[6] === 1: // Request to merge
-        message = "Preparing to change lane";
-      case flags[7] === 1: // Performing merge
-        message = "Changing lane";
-      case flags[9] === 1 && flags[11] === 1: // Intersection
-        message = "Yielding";
-      case flags[12] === 1: // EV incoming
-        message = "Yielding";
-      case flags[14] === 1: // In yielding position
-        message = "Yielding";
-      case flags[9] === 1 && !flags[11] === 1: // Intersection
-        message = "Not Yielding";
-      case flags[12] === 0 && flags[14] === 1: // EV gone, In yieldning position
-        message = "Returning to position";
-      default:
-        message = "";
+    if(flags[6] === 1) { // Request to merge
+      message = "Preparing to change lane";
+    } else if(flags[7] === 1) {// Performing merge
+      message = "Changing lane";
+    } else if((flags[9] === 1 && flags[11] === 1) || flags[12] === 1 || flags[14] === 1) {
+      message = "Yielding";
+    } else if(flags[9] === 1 && !flags[11] === 1) {
+      message = "Not Yielding";
+    } else if(flags[12] === 0 && flags[14] === 1) {
+      message = "Returning to position";
+    } else {
+      message = "";
     }
 
     return (

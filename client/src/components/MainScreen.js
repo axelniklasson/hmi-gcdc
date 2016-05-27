@@ -184,7 +184,7 @@ drawBlinkers() {
   init() {
     this.vehicleHeight = 4628;
     this.vehicleWidth = 1865;
-    this.roadWidth = 4000;
+    this.roadWidth = 5000;
     this.scale = 0.0275;
     this.otherVehicles = [];
   }
@@ -211,14 +211,15 @@ drawBlinkers() {
 
     for (var i = 0; i < vehicles.length; i++) {
 
-    var vehicle = vehicles[i];
+      var vehicle = vehicles[i];
       if(vehicle !== null && vehicle.x !== null && this.otherVehicles[i] !== null && 
         typeof this.otherVehicles[i] != 'undefined') {
         var x = vehicle.x * this.scale;
         var y = vehicle.y * this.scale;
-        var angle = ego.heading;
-        var xrot = Math.cos(-angle*Math.PI/180)*x - Math.sin(-angle*Math.PI/180)*y;
-        var yrot = Math.sin(-angle*Math.PI/180)*x + Math.cos(-angle*Math.PI/180)*y;
+        var angle = 90 - ego.heading;
+        var yrot = Math.cos(-angle*Math.PI/180)*x + Math.sin(-angle*Math.PI/180)*y;
+        var xrot = -Math.sin(-angle*Math.PI/180)*x +  Math.cos(-angle*Math.PI/180)*y;
+        
         this.otherVehicles[i].vehicle.alpha = 0;
         this.otherVehicles[i].vehicle.x = xrot;
         this.otherVehicles[i].vehicle.y = yrot;
@@ -283,7 +284,7 @@ drawBlinkers() {
           this.otherVehicles[i].vehicle.alpha = diff*0.01;
           this.otherVehicles[i].indicator.alpha = 1 - diff*0.01;
 
-        }else if(x < -355){
+        }else if(xrot < -355){
           this.otherVehicles[i].indicator.x = -355- 300*this.scale/0.0275;
           this.otherVehicles[i].indicator.y = bounds.y - 250*this.scale/0.0275 + bounds.height/2;
 
@@ -304,7 +305,6 @@ drawBlinkers() {
           this.otherVehicles[i].indicator.alpha = 1 - diff*0.01;
 
         }else{
-
           this.otherVehicles[i].indicator.alpha = 0;
           this.otherVehicles[i].vehicle.alpha = 1;
         }

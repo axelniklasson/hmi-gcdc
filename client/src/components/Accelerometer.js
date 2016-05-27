@@ -64,7 +64,7 @@ class Accelerometer extends Component {
             height={105} />
           <div styleName="text">
             <span style={flags[0] === 1 ? {color: "white"} : {color: "#444"}}>B</span>
-            <span style={flags[0] === 0 && acceleration < 0 ? {color: "white"} : {color: "#444"}}>D</span>
+            <span style={flags[0] === 0 && acceleration < -1 ? {color: "white"} : {color: "#444"}}>D</span>
             <span style={acceleration > 0 ? {color: "white"} : {color: "#444"}}>A</span>
           </div>
         </div>

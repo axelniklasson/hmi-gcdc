@@ -8,8 +8,7 @@
     "node": ">=0.10"
   },
   "scripts": {
-    "start": "node ./vehicle.js",
-    "simulation": "node ./simulation.js"
+    "start": "node ./vehicle.js"
   },
   "dependencies": {
     "binary": "^0.3.0",

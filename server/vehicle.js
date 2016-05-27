@@ -16,7 +16,6 @@ server.on('error', (err) => {
 
 server.on('message', (packet, remote) => {
     parsing.parse(packet, function(data) {
-	console.log(data);
         io.emit('vehicleData', data); 
     });
 });

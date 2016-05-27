@@ -1,6 +1,8 @@
 export default {
     ego: require('./ego.png'),
     vehicle: require('./vehicle.png'),
+    truck: require('./truck.png'),
+    emergencyVehicle: require('./emergency.png'),
     transport: require('./transport2.png'),
     otherTransport: require('./otherTransport.png'),
     line: require('./line.png'),

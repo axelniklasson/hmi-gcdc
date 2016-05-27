@@ -15,13 +15,21 @@ class Loading extends Component {
     this.canvas = findDOMNode(this.refs.canvas);
     this.speedCanvas = findDOMNode(this.refs.speed);
     this.accelerationCanvas = findDOMNode(this.refs.acceleration);
+    this.infoCanvas = findDOMNode(this.refs.info);
+    this.manualCanvas = findDOMNode(this.refs.manual);
     this.speedStage = new createjs.Stage(this.speedCanvas);
     this.accelerationStage = new createjs.Stage(this.accelerationCanvas);
+    this.infoStage = new createjs.Stage(this.infoCanvas);
+    this.manualStage = new createjs.Stage(this.manualCanvas);
     this.stage = new createjs.Stage(this.canvas);
     this.stage.x = this.canvas.width / 2;
     this.stage.y = this.canvas.height / 2;
     this.speedStage.x = 140;
     this.speedStage.y = 140;
+    this.infoStage.x = 40;
+    this.infoStage.y = 50;
+    this.manualStage.y = 60;
+
 
     this.settingsText = new createjs.Text("Vehicle Settings", "30px sans-serif", "white");
     this.gpsText = new createjs.Text("Navigation", "30px sans-serif", "white");
@@ -35,6 +43,8 @@ class Loading extends Component {
     this.autonomousText = new createjs.Text("Autonomous Driving Available", "30px sans-serif", "white");
     this.activateText = new createjs.Text("Slide up to activate", "20px sans-serif", "white");
     this.loadingText = new createjs.Text("Activating Autonomous Driving", "40px sans-serif", "white");
+    this.manualText = new createjs.Text("Manual Mode", "25px sans-serif", "white");
+
 
     this.number = 0;
     this.outerRadius = 10;
@@ -44,6 +54,9 @@ class Loading extends Component {
   
     this.rect = new createjs.Shape();
     this.gradient = new createjs.Bitmap(images.gradient);
+    this.controls = new createjs.Bitmap(images.controls);
+    this.controls.scaleX = 0.7;
+    this.controls.scaleY = 0.7;
     this.road = new createjs.Bitmap(images.road);
     this.ego = new createjs.Bitmap(images.transport);
     this.ac = new createjs.Bitmap(images.ac);
@@ -154,6 +167,7 @@ class Loading extends Component {
     this.stage.addChild(this.rect);
 
     this.stage.addChild(this.musicGradient);
+    this.stage.addChild(this.musicText);
     this.stage.addChild(this.music);
     this.stage.addChild(this.playingText);
     this.stage.addChild(this.phoneGradient);
@@ -178,6 +192,11 @@ class Loading extends Component {
     this.stage.addChild(this.steeringWheel);
     this.stage.addChild(this.settings);
     this.stage.update();
+
+    this.infoStage.addChild(this.controls);
+    this.infoStage.update();
+    this.manualStage.addChild(this.manualText);
+    this.manualStage.update();
 
     var that = this;
     setTimeout(function () {
@@ -361,10 +380,18 @@ class Loading extends Component {
           that.steeringWheel.y = that.steeringWheel.y -5;
           that.bottomGradient.y = that.bottomGradient.y +5;
           that.rect.y = that.rect.y +5;
+          that.controls.alpha = that.controls.alpha - 0.05;
+          that.manualText.alpha = that.manualText.alpha - 0.05;
+          that.infoStage.update();
+          that.manualStage.update();
           if(that.outerRadius < 1){
             clearInterval(makeSmall);
            that.drawEgo(that);
            that.drawSpeed(that, 0);
+           that.infoStage.removeAllChildren();
+           that.infoStage.update();
+           that.manualStage.removeAllChildren();
+           that.manualStage.update();
           }else{
              that.outerRadius = that.outerRadius -5;
              that.innerRadius = that.innerRadius -5;
@@ -445,7 +472,7 @@ class Loading extends Component {
       that.road.y = roadY;
       that.stage.addChild(that.road);
       that.ego.scaleX = (vehicleWidth / 100) * scale;
-      that.ego.scaleY = (vehicleHeight / 178) * scale;
+      that.ego.scaleY = (vehicleHeight / 205) * scale;
       egoX = egoX + xEgoStep;
       egoY = egoY + yStep;
       that.ego.x = egoX;
@@ -593,9 +620,11 @@ class Loading extends Component {
               <div styleName="infoactionsContainer">
                 <div styleName="infoactionsCircle">
                   <div styleName="infoactionsInnerBox">
-                    <div styleName="infoactionsText">
-                      
-                    </div>
+                      <canvas 
+                       className="container"
+                       ref="info"
+                       width={275}
+                      height={175} />
                   </div>
                 </div>
               </div>
@@ -612,9 +641,9 @@ class Loading extends Component {
           </div>
           <div styleName = "bottomInfoContainer">
             <div styleName = "infoboxContainer">
-              <div styleName = "infoboxText">
-                
-              </div>
+                <canvas 
+                       className="container"
+                       ref="manual"/>
             </div>
           </div>
         </div>

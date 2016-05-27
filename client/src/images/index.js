@@ -1,5 +1,5 @@
 export default {
-    transport: require('./transport2.png'),
+    transport: require('./ego.png'),
     otherTransport: require('./otherTransport.png'),
     line: require('./line.png'),
     road: require('./road.png'),
@@ -11,5 +11,6 @@ export default {
     settings: require('./settings.png'),
     menuGradient: require('./menuGradient.png'),
     blueGradient: require('./blueGradient.png'),
-    steeringWheel: require('./steeringWheel.png')
+    steeringWheel: require('./steeringWheel.png'),
+    controls: require('./controls.png')
 }

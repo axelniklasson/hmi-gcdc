@@ -212,8 +212,8 @@ drawBlinkers() {
     for (var i = 0; i < vehicles.length; i++) {
 
     var vehicle = vehicles[i];
-      if(vehicle !== null && vehicle.x !== null){
-
+      if(vehicle !== null && vehicle.x !== null && this.otherVehicles[i] !== null && 
+        typeof this.otherVehicles[i] != 'undefined') {
         var x = vehicle.x * this.scale;
         var y = vehicle.y * this.scale;
         var angle = ego.heading;
@@ -308,7 +308,7 @@ drawBlinkers() {
           this.otherVehicles[i].indicator.alpha = 0;
           this.otherVehicles[i].vehicle.alpha = 1;
         }
-      }else{
+      }else if(typeof this.otherVehicles[i] != 'undefined') {
         this.otherVehicles[i].vehicle.alpha = 0;
         this.otherVehicles[i].indicator.alpha = 0;
       }
@@ -320,7 +320,7 @@ drawBlinkers() {
   updateScale(zoom) {
     if (zoom == 1 && this.scale < 0.04) {
       this.scale += 0.0025;
-    } else if (zoom == 0 && this.scale > 0.015) {
+    } else if (zoom == 0) {
       this.scale -= 0.0025;
     }
     this.drawEgo();
@@ -334,14 +334,14 @@ drawBlinkers() {
      
        if (ego.flags[1]) {
          this.drawLeftBlinkers = true;
-       } else if (ego.flags[1]) {
+       } else if (ego.flags[1] == 0) {
          this.drawLeftBlinkers = false;
          this.blinkingLeft = false;
        }
 
        if (ego.flags[2]) {
          this.drawRightBlinkers = true;
-       } else if (ego.flags[2]) {
+       } else if (ego.flags[2] == 0) {
          this.drawRightBlinkers = false;
          this.blinkingRight = false;
        }

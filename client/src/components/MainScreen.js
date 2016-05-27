@@ -361,6 +361,8 @@ drawBlinkers() {
 
         if (vehicles[i].ID === 100 || vehicles[i].ID === 110) {
           var vehicle = new createjs.Bitmap(images.truck);
+        } else if (vehicles[i].ID === 99) {
+          var vehicle = new createjs.Bitmap(images.emergencyVehicle);
         } else {
           var vehicle = new createjs.Bitmap(images.vehicle);
         }

@@ -38,7 +38,7 @@ var vehicles = [
     },
     {
         flags: [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
-        ID: 2,
+        ID: 99,
         speed: 18.88,
         acceleration: 0.8,
         heading: 90,

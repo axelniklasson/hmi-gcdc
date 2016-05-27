@@ -12,19 +12,11 @@ var startX = 1000;
 var startY = 2000;
 var data = {};
 var ego = {
-<<<<<<< HEAD
-    flags: [ 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+    flags: [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
     ID: 170,
     speed: 6.19,
     acceleration: -0.033,
     heading: 90,
-=======
-    flags: [0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
-    ID: 170,
-    speed: 6.19,
-    acceleration: -1,
-    heading: 3.127,
->>>>>>> ef5030c9a91a11d518f6919d850d94bcfb7bd1a2
     x: 682276.32,
     y: 5705847.19,
     width: 1.865,
@@ -38,69 +30,65 @@ var vehicles = [
         ID: 1,
         speed: 18.88,
         acceleration: 0.8,
-        heading: 80,
-        x: startX - 1000,
-        y: startY,
+        heading: 90,
+        x: -2000,
+        y: -5000,
         width: 1700,
         length: 4500
     },
     {
-<<<<<<< HEAD
-        // flags: [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
-        // ID: 2,
-        // speed: 18.88,
-        // acceleration: 0.8,
-        // heading: 90,
-        // x: startX,
-        // y: startY + 1000,
-        // width: 1700,
-        // length: 4500
-    },
-     {
-    //     flags: [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
-    //     ID: 3,
-    //     speed: 18.88,
-    //     acceleration: 0.8,
-    //     heading: -90,
-    //     x: startX,
-    //     y: startY,
-    //     width: 1.7,
-    //     length: 4.5
-=======
         flags: [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
         ID: 2,
         speed: 18.88,
         acceleration: 0.8,
         heading: 90,
-        x: startX,
-        y: startY + 1000,
+        x: 3000,
+        y: 5000,
         width: 1700,
         length: 4500
-    },
-    {
-        flags: [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
-        ID: 3,
-        speed: 18.88,
-        acceleration: 0.8,
-        heading: -90,
-        x: startX,
-        y: startY,
-        width: 1700,
-        length: 4500
->>>>>>> ef5030c9a91a11d518f6919d850d94bcfb7bd1a2
     }
 ];
 
 data.ego = ego;
 data.vehicles = vehicles;
+var counter = 0;
 
 setInterval(function() {
-    data.vehicles[0].x += 60;
-    data.vehicles[0].y -= 0;
-    data.vehicles[1].x += 270;
-    data.vehicles[1].y -= 60;
-    data.vehicles[2].x -= 270;
-    data.vehicles[2].y -= 60;
-    // console.log(data);
+
+    var random = Math.floor(Math.random() * 20) + 1;
+    if (random > 10) {
+        data.vehicles[0].x += 120;
+        data.vehicles[1].x -= 40;
+    } else {
+        data.vehicles[0].x -= 30;
+        data.vehicles[1].x += 60;
+    }
+    
+    if (counter > 30 && counter < 60) {
+        data.ego.flags[1] = 1;
+    } else {
+        data.ego.flags[1] = 0;
+    }
+
+    if (counter > 90 && counter < 120) {
+        data.ego.flags[2] = 1;
+    } else {
+        data.ego.flags[2] = 0;
+    }
+
+    if (counter > 150 && counter < 180) {
+        if (data.ego.acceleration > -0.5) {
+            data.ego.acceleration = -0.5;
+        }
+        data.ego.acceleration -= (random * 0.001);
+        data.ego.speed -= (random * 0.001);
+        data.ego.flags[0] = 1;
+    } else {
+        data.ego.acceleration += (random * 0.001);
+        data.ego.speed += (random * 0.001);
+        data.ego.flags[0] = 0;
+    }
+
+    counter++;
     io.emit('vehicleData', data);
 }, 100);

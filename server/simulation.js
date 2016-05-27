@@ -27,14 +27,14 @@ var ego = {
 var vehicles = [
     {
         flags: [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
-        ID: 1,
+        ID: 100,
         speed: 18.88,
         acceleration: 0.8,
         heading: 90,
         x: -2000,
         y: -5000,
-        width: 1700,
-        length: 4500
+        width: 3500,
+        length: 8000
     },
     {
         flags: [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
@@ -64,17 +64,17 @@ setInterval(function() {
         data.vehicles[1].x += 60;
     }
     
-    if (counter > 30 && counter < 60) {
-        data.ego.flags[1] = 1;
-    } else {
-        data.ego.flags[1] = 0;
-    }
+    // if (counter > 30 && counter < 60) {
+    //     data.ego.flags[1] = 1;
+    // } else {
+    //     data.ego.flags[1] = 0;
+    // }
 
-    if (counter > 90 && counter < 120) {
-        data.ego.flags[2] = 1;
-    } else {
-        data.ego.flags[2] = 0;
-    }
+    // if (counter > 90 && counter < 120) {
+    //     data.ego.flags[2] = 1;
+    // } else {
+    //     data.ego.flags[2] = 0;
+    // }
 
     if (counter > 150 && counter < 180) {
         if (data.ego.acceleration > -0.5) {
@@ -87,6 +87,27 @@ setInterval(function() {
         data.ego.acceleration += (random * 0.001);
         data.ego.speed += (random * 0.001);
         data.ego.flags[0] = 0;
+    }
+
+    // Merge messages
+    if (counter > 30 && counter < 90) {
+        data.ego.flags[6] = 1;
+    } else {
+        data.ego.flags[6] = 0;
+    }
+
+    if (counter > 90 && counter < 150) {
+        data.ego.flags[7] = 1;
+        data.ego.flags[2] = 1;
+    } else {
+        data.ego.flags[7] = 0;
+        data.ego.flags[2] = 0;
+    }
+
+    if (counter > 30 && counter < 150) {
+        data.ego.flags[5] = 1;
+    } else {
+        data.ego.flags[5] = 0;
     }
 
     counter++;

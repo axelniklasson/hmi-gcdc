@@ -358,7 +358,12 @@ drawBlinkers() {
     if (this.otherVehicles.length == 0 && ego && vehicles) {
       for (var i = 0; i < vehicles.length; i++) {
         var obj = {};
-        var vehicle = new createjs.Bitmap(images.vehicle);
+
+        if (vehicles[i].ID === 100 || vehicles[i].ID === 110) {
+          var vehicle = new createjs.Bitmap(images.truck);
+        } else {
+          var vehicle = new createjs.Bitmap(images.vehicle);
+        }
         vehicle.alpha = 0;
         obj.vehicle = vehicle;
         var indicator = new createjs.Bitmap(images.indicator);

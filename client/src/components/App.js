@@ -21,6 +21,7 @@ class App extends Component {
 
   componentDidMount() {
     socket.on('vehicleData', (data) => {
+      console.log(data);
       this.setState({
         ego: data.ego,
         egoFlags: data.ego.flags,

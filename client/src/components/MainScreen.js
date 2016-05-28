@@ -213,7 +213,7 @@ drawBlinkers() {
 
       var vehicle = vehicles[i];
       if(vehicle !== null && vehicle.x !== null && this.otherVehicles[i] !== null && 
-        typeof this.otherVehicles[i] != 'undefined') {
+        typeof this.otherVehicles[i] != 'undefined' && this.otherVehicles[i].vehicle !== null) {
         var x = vehicle.x * this.scale;
         var y = vehicle.y * this.scale;
         var angle = ego.heading;
@@ -359,23 +359,25 @@ drawBlinkers() {
 
     if (this.otherVehicles.length == 0 && ego && vehicles) {
       for (var i = 0; i < vehicles.length; i++) {
-        var obj = {};
+        if (vehicles[i] !== null && typeof vehicles[i] != 'undefined') {
+          var obj = {};
 
-        if (vehicles[i].ID === 100 || vehicles[i].ID === 110) {
-          var vehicle = new createjs.Bitmap(images.truck);
-        } else if (vehicles[i].ID === 99) {
-          var vehicle = new createjs.Bitmap(images.emergencyVehicle);
-        } else {
-          var vehicle = new createjs.Bitmap(images.vehicle);
+          if (vehicles[i].ID === 100 || vehicles[i].ID === 110) {
+            var vehicle = new createjs.Bitmap(images.truck);
+          } else if (vehicles[i].ID === 99) {
+            var vehicle = new createjs.Bitmap(images.emergencyVehicle);
+          } else {
+            var vehicle = new createjs.Bitmap(images.vehicle);
+          }
+          vehicle.alpha = 0;
+          obj.vehicle = vehicle;
+          var indicator = new createjs.Bitmap(images.indicator);
+          indicator.alpha = 0;
+          obj.indicator = indicator;
+          this.otherVehicles.push(obj);
+          this.stage.addChild(vehicle);
+          this.stage.addChild(indicator);
         }
-        vehicle.alpha = 0;
-        obj.vehicle = vehicle;
-        var indicator = new createjs.Bitmap(images.indicator);
-        indicator.alpha = 0;
-        obj.indicator = indicator;
-        this.otherVehicles.push(obj);
-        this.stage.addChild(vehicle);
-        this.stage.addChild(indicator);
       }
     }
 

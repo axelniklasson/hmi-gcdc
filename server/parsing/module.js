@@ -1,4 +1,7 @@
 var labels = require('./labels.js');
+var egoHeadings = [0, 0, 0, 0, 0];
+var egoX = [0, 0, 0, 0, 0];
+var egoY = [0, 0, 0, 0, 0];
 
 module.exports = {
   parse: function(packet, callback) {
@@ -10,8 +13,53 @@ module.exports = {
     var speed = this.parseSingle(packet.slice(4, 8));
     var acceleration = this.parseSingle(packet.slice(8, 12));
     var heading = (-1) * this.parseSingle(packet.slice(12, 16));
+
+    egoHeadings.unshift(heading);
+    var sum = 0;
+    var i = 0;
+    for (i; i < 5; i++) {
+        sum += egoHeadings[i];
+        if (egoHeadings[i] == 0) {
+            break;
+        }
+    }
+    if (egoHeadings.length == 6) {
+        egoHeadings = egoHeadings.slice(0,4);
+    }
+    heading = sum / i;
+
     var x = this.parseDouble(packet.slice(16, 24));
+
+    egoX.unshift(x);
+    var sum = 0;
+    var i = 0;
+    for (i; i < 5; i++) {
+        sum += egoX[i];
+        if (egoX[i] == 0) {
+            break;
+        }
+    }
+    if (egoX.length == 6) {
+        egoX = egoX.slice(0,4);
+    }
+    x = sum / i;
+
     var y = this.parseDouble(packet.slice(24, 32));
+
+    egoY.unshift(y);
+    var sum = 0;
+    var i = 0;
+    for (i; i < 5; i++) {
+        sum += egoY[i];
+        if (egoY[i] == 0) {
+            break;
+        }
+    }
+    if (egoY.length == 6) {
+        egoY = egoY.slice(0,4);
+    }
+    y = sum / i;
+
     var width = this.parseSingle(packet.slice(32, 36)) * 1000;
     var length = this.parseSingle(packet.slice(36, 40)) * 1000;
     var distanceToLane = this.parseSingle(packet.slice(40, 44));
@@ -45,9 +93,12 @@ module.exports = {
     var vehicleLabels = labels.getVehicleLabels();
     var vehiclesData = packet.slice(52);
     for (var i = 0; i < vehiclesData.length / 40; i++) {
-        var currentVehicle = vehiclesData.slice(40*i, 40+40*i)
-
+        var currentVehicle = vehiclesData.slice(40*i, 40+40*i);
+        var vehicleHeadings = [0, 0, 0, 0, 0];
+        var vehicleX = [0, 0, 0, 0, 0];
+        var vehicleY = [0, 0, 0, 0, 0];
         var ID = this.parseUint16(currentVehicle.slice(2, 4));
+
         if (ID != 0) {
             var flags = this.parseFlags(currentVehicle.slice(0, 2));
             var speed = this.parseSingle(currentVehicle.slice(4, 8));
@@ -58,6 +109,48 @@ module.exports = {
             var width = this.parseSingle(currentVehicle.slice(32, 36)) * 1000;
             var length = this.parseSingle(currentVehicle.slice(36, 40)) * 1000;
 
+            vehicleHeadings.unshift(heading);
+            var sum = 0;
+            var j = 0;
+            for (j; j < 5; j++) {
+                sum += vehicleHeadings[j];
+                if (vehicleHeadings[j] == 0) {
+                    break;
+                }
+            }
+            if (vehicleHeadings.length == 6) {
+                vehicleHeadings = vehicleHeadings.slice(0,4);
+            }
+            heading = sum / j;
+
+            vehicleX.unshift(x);
+            var sum = 0;
+            var j = 0;
+            for (j; j < 5; j++) {
+                sum += vehicleX[j];
+                if (vehicleX[j] == 0) {
+                    break;
+                }
+            }
+            if (vehicleX.length == 6) {
+                vehicleX = vehicleX.slice(0,4);
+            }
+            x = sum / j;
+
+            vehicleY.unshift(y);
+            var sum = 0;
+            var j = 0;
+            for (j; j < 5; j++) {
+                sum += vehicleY[j];
+                if (vehicleY[j] == 0) {
+                    break;
+                }
+            }
+            if (vehicleY.length == 6) {
+                vehicleY = vehicleY.slice(0,4);
+            }
+            y = sum / j;
+            
             var vehicle = {};
             vehicle[vehicleLabels[0]] = flags;
             vehicle[vehicleLabels[1]] = ID;

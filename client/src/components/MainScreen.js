@@ -216,19 +216,21 @@ drawBlinkers() {
         typeof this.otherVehicles[i] != 'undefined') {
         var x = vehicle.x * this.scale;
         var y = vehicle.y * this.scale;
-        var angle = 90 - ego.heading;
+        var angle = ego.heading;
         var yrot = Math.cos(-angle*Math.PI/180)*x + Math.sin(-angle*Math.PI/180)*y;
-        var xrot = -Math.sin(-angle*Math.PI/180)*x +  Math.cos(-angle*Math.PI/180)*y;
+        var xrot = Math.sin(-angle*Math.PI/180)*x - Math.cos(-angle*Math.PI/180)*y;
         
         this.otherVehicles[i].vehicle.alpha = 0;
         this.otherVehicles[i].vehicle.x = xrot;
         this.otherVehicles[i].vehicle.y = yrot;
-        this.otherVehicles[i].vehicle.rotation = vehicle.heading-ego.heading;
         this.otherVehicles[i].vehicle.scaleX = (vehicle.width / 100) * this.scale;
         this.otherVehicles[i].vehicle.scaleY = (vehicle.length / 205) * this.scale;
         this.otherVehicles[i].indicator.scaleX = this.scale/0.0275;
         this.otherVehicles[i].indicator.scaleY = this.scale/0.0275;
         var bounds = this.otherVehicles[i].vehicle.getTransformedBounds();
+        this.otherVehicles[i].vehicle.regX = bounds.width / 2;
+        this.otherVehicles[i].vehicle.regY = bounds.height / 2;
+        this.otherVehicles[i].vehicle.rotation = vehicle.heading-ego.heading;
         
         if(yrot < -551 && xrot < 412 && xrot > -355){  
           this.otherVehicles[i].indicator.x = bounds.x - 250*this.scale/0.0275 + bounds.width/2;

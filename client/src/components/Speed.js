@@ -1,28 +1,24 @@
-import React from 'react'
+import React, { Component } from 'react'
+import CSSModules from 'react-css-modules'
+import styles from '../styles/Speed'
+import Speedometer from './Speedometer'
 
-const socket = require('socket.io-client')('http://localhost:3000');
-
-class Speed extends React.Component {
+class Speed extends Component {
   constructor(props) {
     super(props)
-    this.state = {
-      speed: 0
-    }
-  }
-
-  componentDidMount() {
-    socket.on('data', (msg) => {
-      this.setState({speed: msg[0]})
-    })
   }
 
   render() {
+    var { speed } = this.props;
+
     return (
-      <div>
-        {this.state.speed}
+      <div styleName="container">
+        <div styleName="circle">
+          <Speedometer speed={speed}/>
+        </div>
       </div>
     )
   }
 }
 
-export default Speed
+export default CSSModules(Speed, styles)

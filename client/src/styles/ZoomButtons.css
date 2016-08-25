@@ -1,0 +1,15 @@
+.container {
+    height: 250;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    width: 90px;
+    position: absolute;
+    right: 50px;
+    bottom: 250px;
+}
+
+img {
+    width: 70px;
+    height: 70px;
+    margin: 15px;
+}
